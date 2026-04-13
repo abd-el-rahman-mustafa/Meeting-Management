@@ -26,7 +26,7 @@ public class UserService : IUserService
             Id = u.Id,
             FirstName = u.FirstName,
             LastName = u.LastName,
-            Email = u.Email,
+            Email = u.Email ?? "",
             EmailConfirmed = u.EmailConfirmed,
             PhoneNumber = u.PhoneNumber,
             PhoneNumberConfirmed = u.PhoneNumberConfirmed,
@@ -43,8 +43,11 @@ public class UserService : IUserService
             Id = u.Id,
             FirstName = u.FirstName,
             LastName = u.LastName,
-            Email = u.Email,
+            Email = u.Email ?? "",
         }).FirstOrDefaultAsync();
+
+        if (user == null)
+            throw new InvalidOperationException("User not found");
 
         return user;
     }
@@ -58,7 +61,7 @@ public class UserService : IUserService
             Id = u.Id,
             FirstName = u.FirstName,
             LastName = u.LastName,
-            Email = u.Email,
+            Email = u.Email ?? "",
         }).ToList();
     }
 

@@ -35,6 +35,7 @@ public class JwtService : IJwtService
             var userRoles = user.UserRoles.Select(ur => ur.Role.Name).ToArray();
 
             Console.WriteLine($"User Roles: {string.Join(", ", userRoles)}");
+            if (userRoles.Length > 0)
             claims.AddRange(userRoles.Select(role => new Claim(ClaimTypes.Role, role)));
 
             // 2. Create signing credentials using the secret key

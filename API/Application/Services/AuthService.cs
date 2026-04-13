@@ -11,19 +11,15 @@ namespace API.Application.Services;
 public class AuthService : IAuthService
 {
     private readonly UserManager<AppUser> _userManager;
-    private readonly IOtpService _otpService;
-    private readonly IEmailService _emailService;
     private readonly IJwtService _jwtService;
     private readonly DataContext _dbContext;
     private readonly string language;
 
-    public AuthService(UserManager<AppUser> userManager, IOtpService otpService, IEmailService emailService,
+    public AuthService(UserManager<AppUser> userManager,
      IJwtService jwtService, DataContext dbContext, IRequestContext requestContext)
     {
         _userManager = userManager;
-        _otpService = otpService;
         _jwtService = jwtService;
-        _emailService = emailService;
         _dbContext = dbContext;
         language = requestContext.Language;
     }
@@ -82,11 +78,11 @@ public class AuthService : IAuthService
     // Login
     // -------------------------------------------------------------------------
 
-    public async Task<ServiceResult<string>> loginRequestAsync(LoginRequestDto loginDto)
+    public async Task<ServiceResult<TokenResponseDto>> loginRequestAsync(LoginRequestDto loginDto)
     {
         var user = await _userManager.FindByEmailAsync(loginDto.Email);
         if (user == null)
-            return ServiceResult<string>.Failure(
+            return ServiceResult<TokenResponseDto>.Failure(
                 title: language == "ar" ? "بيانات دخول غير صالحة" : "Invalid Credentials",
                 detail: language == "ar" ? "لم يتم العثور على حساب بهذا البريد الإلكتروني." : "No account found with that email address.",
                 statusCode: StatusCodes.Status404NotFound
@@ -94,7 +90,7 @@ public class AuthService : IAuthService
 
         var passwordValid = await _userManager.CheckPasswordAsync(user, loginDto.Password);
         if (!passwordValid)
-            return ServiceResult<string>.Failure(
+            return ServiceResult<TokenResponseDto>.Failure(
                 title: language == "ar" ? "بيانات دخول غير صالحة" : "Invalid Credentials",
                 detail: language == "ar" ? "كلمة المرور غير صحيحة." : "Incorrect password.",
                 statusCode: StatusCodes.Status400BadRequest

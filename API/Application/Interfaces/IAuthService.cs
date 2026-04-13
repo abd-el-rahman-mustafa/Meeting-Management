@@ -16,7 +16,7 @@ public interface IAuthService
     /// Authenticates a user with email and password.
     /// Send otp to email if credentials are valid.
     /// </summary>
-    Task<ServiceResult<string>> loginRequestAsync(LoginRequestDto loginDto);
+    Task<ServiceResult<TokenResponseDto>> loginRequestAsync(LoginRequestDto loginDto);
 
     
 }

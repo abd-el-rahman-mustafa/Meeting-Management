@@ -14,16 +14,12 @@ public static class DependencyInjection
         services.AddDbContext<DataContext>(options =>
             options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
-        // Configure email settings
-        services.Configure<EmailSettings>(configuration.GetSection("EmailSettings"));
 
         // Configure JWT settings
         services.Configure<JwtSettings>(configuration.GetSection("JwtSettings"));
         
         // Service registrations
         services.AddScoped<IAuthService, AuthService>();
-        services.AddScoped<IOtpService, OtpService>();
-        services.AddScoped<IEmailService, EmailService>();
         services.AddScoped<IJwtService, JwtService>();
         services.AddScoped<IUserService, UserService>();
 
