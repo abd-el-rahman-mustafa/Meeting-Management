@@ -42,10 +42,15 @@ public static class IdentityService
         })
     .AddJwtBearer(options =>
     {
+
+         var secretKey = configuration["JwtSettings:SecretKey"]
+        ?? throw new InvalidOperationException("'JwtSettings:SecretKey' is missing from configuration.");
+
+
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JwtSettings:SecretKey"]!)),
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey)),
             ValidateIssuer = false,
             ValidateAudience = false,
             // TODO: Consider removing clock skew tolerance after adding the refresh token mechanism
