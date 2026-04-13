@@ -3,7 +3,7 @@ using API.Application.Interfaces;
 using API.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using API.Application.DTOs;
-
+using Microsoft.EntityFrameworkCore.Diagnostics;
 namespace API.Middleware;
 
 public static class DependencyInjection
@@ -11,8 +11,12 @@ public static class DependencyInjection
     public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration configuration)
     {
         // Add DbContext
-        services.AddDbContext<DataContext>(options =>
-            options.UseSqlite(configuration.GetConnectionString("DefaultConnection")));
+       services.AddDbContext<DataContext>(options =>
+        {
+            options.UseSqlite(configuration.GetConnectionString("DefaultConnection"));
+            options.ConfigureWarnings(w => 
+                w.Ignore(RelationalEventId.PendingModelChangesWarning));
+        });
 
 
         // Configure JWT settings
