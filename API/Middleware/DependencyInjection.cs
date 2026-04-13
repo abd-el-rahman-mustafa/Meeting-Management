@@ -12,7 +12,7 @@ public static class DependencyInjection
     {
         // Add DbContext
         services.AddDbContext<DataContext>(options =>
-            options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+            options.UseSqlite(configuration.GetConnectionString("DefaultConnection")));
 
 
         // Configure JWT settings
