@@ -68,8 +68,10 @@ export class Login extends BaseComponent {
       this.authService.loginRequest(loginDto).subscribe({
         next: (response) => {
           this.toastr.success(response.detail, response.title);
-          this.otpSent = true;
-          this.startCountdown();
+          // this.otpSent = true;
+          // this.startCountdown();
+          this.tokenService.handleToken(response.data);
+          this.router.navigate(['/']);
         },
       });
     } else {

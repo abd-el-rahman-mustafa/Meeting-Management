@@ -24,8 +24,8 @@ export class AuthService {
     return this.http.post(`${this.url}/register`, registerDtor);
   }
 
-  loginRequest(loginDto: LoginDto): Observable<ApiResponse<string>> {
-    return this.http.post<ApiResponse<string>>(`${this.url}/login-request`, loginDto);
+  loginRequest(loginDto: LoginDto): Observable<ApiResponse<AuthToken>> {
+    return this.http.post<ApiResponse<AuthToken>>(`${this.url}/login-request`, loginDto);
   }
   emailOtpLogin(otpDto: LoginOtpDto): Observable<ApiResponse<AuthToken>> {
     return this.http.post<ApiResponse<AuthToken>>(`${this.url}/email-otp-login`, otpDto);
