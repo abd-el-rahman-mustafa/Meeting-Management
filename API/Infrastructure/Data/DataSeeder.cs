@@ -33,7 +33,14 @@ public static class DataSeeder
                 NameAr      = "مستخدم",
                 DescriptionEn = "Access to basic features and functionalities.",
                 DescriptionAr = "الوصول إلى الميزات والوظائف الأساسية."
-            }
+            },
+            new AppRole
+            {
+                Name        = Roles.Organizer,
+                NameAr      = "منظم",
+                DescriptionEn = "Can create and manage meetings.",
+                DescriptionAr = "يمكنه إنشاء وإدارة الاجتماعات."
+            },
             // Other roles can be added here in the future, such as "Manager" or "Support"
             
         };
@@ -128,6 +135,21 @@ public static class DataSeeder
                         IsActive  = true
                     },
                     "Heba@1234",
+                    Roles.User
+                ),
+                (
+                    new AppUser
+                    {
+                        UserName  = "Omar",
+                        Email     = "Omar@example.com",
+                        FirstName = "Omar",
+                        LastName  = "Example",
+                        Gender    = Gender.Male,
+                        CreatedAt = now,
+                        UpdatedAt = now,
+                        IsActive  = true
+                    },
+                    "Omar@1234",
                     Roles.User
                 )
 
