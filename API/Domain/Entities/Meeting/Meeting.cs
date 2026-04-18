@@ -47,10 +47,11 @@ public class Meeting : BaseEntity
     public int RequiredManagementQuorum { get; set; } // e.g. 2 (minimum number of management attendees required for the meeting to proceed) will be filled by the system based on the session occurrence and the total number of management attendees invited to the meeting. For example, if there are 4 management attendees invited to a meeting and it's the first occurrence, the quorum might be set to 2. If it's the second occurrence, the quorum might be set to 1, and so on (admin config).
     public int ActualManagementQuorum { get; set; } // e.g. 3 (actual number of management attendees who joined the meeting) will be updated by the system in real-time as management attendees join the meeting. This can be used to determine if the meeting can proceed based on the required management quorum.
 
-   
+
     public string OrganizerId { get; set; } = null!;
     public AppUser Organizer { get; set; } = null!;
     public ICollection<MeetingAttendee> Attendees { get; set; } = new List<MeetingAttendee>();
+    public ICollection<MeetingObserver> Observers { get; set; } = new List<MeetingObserver>();
     public ICollection<AgendaItem> AgendaItems { get; set; } = new List<AgendaItem>();
 }
 
