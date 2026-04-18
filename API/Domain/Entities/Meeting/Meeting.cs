@@ -26,6 +26,16 @@ public class Meeting : BaseEntity
     public string MeetingTypeDescription { get; set; } = null!; // e.g. "Regular team meetings to discuss project progress and blockers."
     public string MeetingTypeDescriptionAr { get; set; } = null!; // e.g. "اجتماعات الفريق المنتظمة لمناقشة تقدم المشروع والعقبات."
 
+    // Meeting Category
+    public int MeetingCategoryId { get; set; } // e.g. 1 for "Strategic", 2 for "Operational", etc.
+    public MeetingCategory MeetingCategory { get; set; } = null!;
+    public string MeetingCategoryCode { get; set; } = null!; // e.g. "STRATEGIC", "OPERATIONAL", "PROJECT"
+    public string MeetingCategoryName { get; set; } = null!; // e.g. "Strategic Meeting", "Operational Meeting", "Project Meeting"
+    public string MeetingCategoryNameAr { get; set; } = null!; // e.g. "اجتماع استراتيجي", "اجتماع تشغيلي", "اجتماع مشروع"
+    public string MeetingCategoryDescription { get; set; } = null!; // e.g
+    public string MeetingCategoryDescriptionAr { get; set; } = null!; // e.g. "الاجتماعات التي تركز على التخطيط الاستراتيجي واتخاذ القرار."
+
+
     // Attendees & Observers
 
     // Members Quorum
