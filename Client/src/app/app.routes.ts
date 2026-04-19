@@ -27,6 +27,28 @@ export const routes: Routes = [
             children: [
               { path: ':id', loadComponent: () => import('./pages/user/user-profile/user-profile').then(m => m.UserProfile) }
             ]
+          },
+
+          // meeting categories
+          {
+            path: 'meeting-categories',
+            children: [
+              {
+                path: '',
+                loadComponent: () =>
+                  import('./pages/meeting-categories/list/meeting-categories-list').then((m) => m.MeetingCategoriesList),
+              },
+              {
+                path: 'new',
+                loadComponent: () =>
+                  import('./pages/meeting-categories/manage/meeting-categories-manage').then((m) => m.MeetingCategoriesManage),
+              },
+              {
+                path: ':id/edit',
+                loadComponent: () =>
+                  import('./pages/meeting-categories/manage/meeting-categories-manage').then((m) => m.MeetingCategoriesManage),
+              },
+            ],
           }
 
         ]

@@ -1,0 +1,82 @@
+<div class="p-6 flex flex-col gap-6">
+  <div class="flex items-center justify-between gap-3">
+    <div>
+      <h1 class="font-['Playfair_Display'] text-2xl font-bold text-[#0C447C]">{{ title }}</h1>
+      <p class="mt-0.5 font-['DM_Sans'] text-sm text-gray-400">{{ subtitle }}</p>
+    </div>
+
+    <a
+      [routerLink]="'/meeting-categories/new'"
+      class="inline-flex items-center gap-2 rounded-lg bg-[#0C447C] px-4 py-2 text-sm font-semibold text-white hover:bg-[#0a3a6a] transition-colors"
+    >
+      <i class="fa-solid fa-plus"></i>
+      <span>{{ addLabel }}</span>
+    </a>
+  </div>
+
+  <div class="rounded-2xl border border-gray-100 bg-white shadow-sm overflow-hidden">
+    <div class="overflow-x-auto">
+      <table class="w-full">
+        <thead>
+          <tr class="border-b border-gray-100 bg-gray-50/60">
+            <th class="px-5 py-3.5 text-start text-[11px] font-semibold uppercase tracking-widest text-gray-400">
+              {{ lang() === 'en' ? 'Code' : 'الكود' }}
+            </th>
+            <th class="px-5 py-3.5 text-start text-[11px] font-semibold uppercase tracking-widest text-gray-400">
+              {{ lang() === 'en' ? 'Name (EN)' : 'الاسم (EN)' }}
+            </th>
+            <th class="px-5 py-3.5 text-start text-[11px] font-semibold uppercase tracking-widest text-gray-400">
+              {{ lang() === 'en' ? 'Name (AR)' : 'الاسم (AR)' }}
+            </th>
+            <th class="px-5 py-3.5 text-start text-[11px] font-semibold uppercase tracking-widest text-gray-400">
+              {{ lang() === 'en' ? 'Actions' : 'الإجراءات' }}
+            </th>
+          </tr>
+        </thead>
+
+        <tbody>
+          @if (loading) {
+            <tr>
+              <td colspan="4" class="px-5 py-10 text-center text-sm text-gray-400">
+                {{ lang() === 'en' ? 'Loading...' : 'جاري التحميل...' }}
+              </td>
+            </tr>
+          } @else {
+            @for (category of categories; track category.id) {
+              <tr class="border-b border-gray-50 hover:bg-[#F4F8FD] transition-colors duration-150">
+                <td class="px-5 py-3.5 text-sm text-gray-700">{{ category.code }}</td>
+                <td class="px-5 py-3.5 text-sm text-gray-700">{{ category.name }}</td>
+                <td class="px-5 py-3.5 text-sm text-gray-700">{{ category.nameAr }}</td>
+                <td class="px-5 py-3.5">
+                  <div class="flex items-center gap-2">
+                    <a
+                      [routerLink]="['/meeting-categories', category.id, 'edit']"
+                      class="inline-flex items-center gap-1 rounded-md bg-[#E6F1FB] px-2.5 py-1.5 text-xs font-semibold text-[#0C447C] hover:bg-[#d6e7f8]"
+                    >
+                      <i class="fa-solid fa-pen-to-square"></i>
+                      <span>{{ lang() === 'en' ? 'Edit' : 'تعديل' }}</span>
+                    </a>
+                    <button
+                      type="button"
+                      (click)="onDelete(category)"
+                      class="inline-flex items-center gap-1 rounded-md bg-red-50 px-2.5 py-1.5 text-xs font-semibold text-red-600 hover:bg-red-100"
+                    >
+                      <i class="fa-solid fa-trash"></i>
+                      <span>{{ lang() === 'en' ? 'Delete' : 'حذف' }}</span>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            } @empty {
+              <tr>
+                <td colspan="4" class="px-5 py-10 text-center text-sm text-gray-400">
+                  {{ lang() === 'en' ? 'No meeting categories found.' : 'لا توجد تصنيفات اجتماعات.' }}
+                </td>
+              </tr>
+            }
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

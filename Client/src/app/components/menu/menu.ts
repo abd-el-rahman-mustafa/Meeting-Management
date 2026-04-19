@@ -34,6 +34,11 @@ export class MenuComponent extends BaseComponent {
       icon: 'fa-solid fa-calendar',
     },
     {
+      label: this.lang()== 'en'? 'Meeting Categories' : 'تصنيفات الاجتماعات',
+      route: '/meeting-categories',
+      icon: 'fa-solid fa-layer-group',
+    },
+    {
       label: this.lang()== 'en'? 'Users' : 'المستخدمين',
       route: '/users',
       icon: 'fa-solid fa-users',
