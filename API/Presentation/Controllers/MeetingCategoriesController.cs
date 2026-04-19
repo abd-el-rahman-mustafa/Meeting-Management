@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Presentation.Controllers;
 
+[Route("api/meeting-categories")]
 public class MeetingCategoriesController : BaseController
 {
     private readonly IMeetingCategoryService _meetingCategoryService;
