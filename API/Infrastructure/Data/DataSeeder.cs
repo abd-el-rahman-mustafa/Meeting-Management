@@ -157,13 +157,23 @@ public static class DataSeeder
         Console.WriteLine("Seeding users...");
         foreach (var (user, password, role) in seedUsers)
         {
-            if (await userManager.FindByEmailAsync(user.Email!) is null)
+            var existingUser = await userManager.FindByEmailAsync(user.Email!);
+            if (existingUser is null)
             {
                 var result = await userManager.CreateAsync(user, password);
                 Console.WriteLine($"Creating user {user.Email}: {(result.Succeeded ? "Success" : "Failed")}");
                 if (result.Succeeded)
                     await userManager.AddToRoleAsync(user, role);
                 Console.WriteLine($"Assigning role '{role}' to user {user.Email}: Success");
+            }
+            else
+            {
+                // Ensure seeded users always have their expected role, even if user already existed.
+                if (!await userManager.IsInRoleAsync(existingUser, role))
+                {
+                    await userManager.AddToRoleAsync(existingUser, role);
+                    Console.WriteLine($"Assigning missing role '{role}' to existing user {existingUser.Email}: Success");
+                }
             }
         }
         Console.WriteLine("User seeding completed.");

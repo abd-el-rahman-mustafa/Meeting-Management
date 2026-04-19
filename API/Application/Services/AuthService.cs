@@ -80,7 +80,10 @@ public class AuthService : IAuthService
 
     public async Task<ServiceResult<TokenResponseDto>> loginRequestAsync(LoginRequestDto loginDto)
     {
-        var user = await _userManager.FindByEmailAsync(loginDto.Email);
+        var user = await _userManager.Users
+            .Include(u => u.UserRoles)
+            .ThenInclude(ur => ur.Role)
+            .FirstOrDefaultAsync(u => u.Email == loginDto.Email);
         if (user == null)
             return ServiceResult<TokenResponseDto>.Failure(
                 title: language == "ar" ? "بيانات دخول غير صالحة" : "Invalid Credentials",
