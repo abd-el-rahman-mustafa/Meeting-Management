@@ -486,3 +486,6 @@ $RECYCLE.BIN/
 # Extra excluded files
 API/appsettings.json
 API/wwwroot/
+API/app.db
+API/app.db-shm
+API/app.db-wal
