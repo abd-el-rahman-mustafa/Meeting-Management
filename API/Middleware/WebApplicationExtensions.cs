@@ -1,5 +1,6 @@
 using API.Domain.Entities;
 using API.Infrastructure.Data;
+using Microsoft.Data.Sqlite;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,9 +12,43 @@ public static class WebApplicationExtensions
     {
         using var scope = app.Services.CreateScope();
 
-        // Auto-migrate the database 
         var dbContext = scope.ServiceProvider.GetRequiredService<DataContext>();
-        await dbContext.Database.MigrateAsync();
+        try
+        {
+            // Auto-migrate the database
+            await dbContext.Database.MigrateAsync();
+        }
+        catch (SqliteException ex) when (app.Environment.IsDevelopment() && ex.SqliteErrorCode == 26)
+        {
+            // "file is not a database" - recreate local dev db files and retry once.
+            dbContext.Database.CloseConnection();
+            SqliteConnection.ClearAllPools();
+
+            var dbPath = Path.Combine(app.Environment.ContentRootPath, "app.db");
+            foreach (var path in new[] { $"{dbPath}-wal", $"{dbPath}-shm", dbPath })
+            {
+                for (var attempt = 0; attempt < 5; attempt++)
+                {
+                    if (!File.Exists(path))
+                    {
+                        break;
+                    }
+
+                    try
+                    {
+                        File.Delete(path);
+                        break;
+                    }
+                    catch (IOException) when (attempt < 4)
+                    {
+                        await Task.Delay(150);
+                        SqliteConnection.ClearAllPools();
+                    }
+                }
+            }
+
+            await dbContext.Database.MigrateAsync();
+        }
 
 
         // Seed roles and users
