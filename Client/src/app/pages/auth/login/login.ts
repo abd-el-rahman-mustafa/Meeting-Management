@@ -29,7 +29,6 @@ export class Login extends BaseComponent {
   // Used in the brand panel footer
   readonly currentYear = signal(new Date().getFullYear());
 
-  toastr = inject(ToastrService);
   router = inject(Router);
 
   constructor(

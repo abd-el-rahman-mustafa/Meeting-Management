@@ -4,6 +4,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BaseComponent } from '../../../core/components/base-component/base-component';
 import { MeetingSettingsService } from '../meeting-settings.service';
 import { UpsertMeetingSettingsDto } from '../meeting-settings.interface';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-meeting-settings-manage',
@@ -68,6 +69,7 @@ export class MeetingSettingsManage extends BaseComponent implements OnInit {
       next: (settings) => {
         this.form.patchValue(settings);
         this.saving = false;
+        this.toastr.success(this.lang() === 'en' ? 'Settings updated successfully' : 'تم تحديث الإعدادات بنجاح');
       },
       error: () => {
         this.saving = false;

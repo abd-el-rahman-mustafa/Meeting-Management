@@ -3,13 +3,14 @@ import { Router } from '@angular/router';
 import { PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser, DOCUMENT } from '@angular/common';
 import { defaultLang, Lang } from '../interfaces/language.interface';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({ providedIn: 'root' })
 export class LanguageService {
   private router = inject(Router);
   private platformId = inject(PLATFORM_ID);
   private document = inject(DOCUMENT);
-
+  private toastr = inject(ToastrService);
   // Default language is Arabic. This can be changed to English if needed.
 
   /**
@@ -32,6 +33,9 @@ export class LanguageService {
       const dir = lang === 'en' ? 'ltr' : 'rtl';
       this.document.documentElement.setAttribute('dir', dir);
       this.document.documentElement.setAttribute('lang', lang);
+
+      this.toastr.toastrConfig.positionClass =
+        lang === 'ar' ? 'toast-bottom-left' : 'toast-bottom-right';
     }
   }
 

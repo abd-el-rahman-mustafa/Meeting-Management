@@ -3,6 +3,7 @@ import { LanguageService } from '../../services/language.service';
 import { UserTokenData } from '../../../pages/auth/auth.interface';
 import { TokenService } from '../../services/token.service';
 import { isPlatformBrowser } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-base-component',
@@ -14,7 +15,7 @@ export class BaseComponent {
 
   private langService = inject(LanguageService);
   tokenService = inject(TokenService);
-
+  toastr = inject(ToastrService);
   user: UserTokenData | null = null;
   lang = this.langService.lang;
   toggleLang = () => this.langService.toggleLang();

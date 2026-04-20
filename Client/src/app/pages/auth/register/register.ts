@@ -23,7 +23,6 @@ export class Register extends BaseComponent implements OnInit, OnDestroy {
   otpCountdown = 180; // 3 minutes
   intervalId: any;
 
-  toastr = inject(ToastrService);
   authService = inject(AuthService);
   fb = inject(FormBuilder);
   /**
