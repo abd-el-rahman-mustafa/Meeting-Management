@@ -37,9 +37,19 @@ export class BaseComponent {
     }
   }
 
+  hasRole(role: string): boolean {
+    if (!this.user?.roles) {
+      return false;
+    }
 
+    const sourceRoles = Array.isArray(this.user.roles)
+      ? this.user.roles
+      : this.user.roles.split(',');
 
+    return sourceRoles.some((userRole) => userRole.trim().toLowerCase() === role.toLowerCase());
+  }
 
-
-
+  get isAdmin(): boolean {
+    return this.hasRole('Admin');
+  }
 }

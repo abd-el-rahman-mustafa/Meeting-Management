@@ -21,5 +21,5 @@ export interface UserTokenData {
     id: number;
     fullName: string;
     email: string;
-    roles: string;
+    roles: string | string[];
 }

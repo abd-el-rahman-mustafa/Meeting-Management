@@ -1,0 +1,69 @@
+<div class="max-w-4xl p-6">
+  <div class="mb-6">
+    <h1 class="font-['Playfair_Display'] text-2xl font-bold text-[#0C447C]">{{ pageTitle }}</h1>
+    <p class="mt-1 text-sm text-gray-400">
+      {{ lang() === 'en' ? 'Set required members per meeting session occurrence.' : 'حدد الأعداد المطلوبة لكل انعقاد من الاجتماع.' }}
+    </p>
+  </div>
+
+  @if (loading) {
+    <div class="rounded-xl border border-gray-100 bg-white p-8 text-center text-sm text-gray-400">
+      {{ lang() === 'en' ? 'Loading settings...' : 'جاري تحميل الإعدادات...' }}
+    </div>
+  } @else {
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm space-y-6">
+      <div>
+        <h2 class="mb-3 text-sm font-semibold text-gray-700">
+          {{ lang() === 'en' ? 'Management quorum' : 'نصاب الإدارة' }}
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div>
+            <label class="mb-1.5 block text-sm font-medium text-gray-700">{{ lang() === 'en' ? 'First session' : 'الانعقاد الأول' }}</label>
+            <input type="number" min="1" formControlName="firstSessionOccurrenceRequiredManagementMembersCount"
+              class="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm outline-none focus:border-[#0C447C]" />
+          </div>
+          <div>
+            <label class="mb-1.5 block text-sm font-medium text-gray-700">{{ lang() === 'en' ? 'Second session' : 'الانعقاد الثاني' }}</label>
+            <input type="number" min="1" formControlName="secondSessionOccurrenceRequiredManagementMembersCount"
+              class="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm outline-none focus:border-[#0C447C]" />
+          </div>
+          <div>
+            <label class="mb-1.5 block text-sm font-medium text-gray-700">{{ lang() === 'en' ? 'Third session' : 'الانعقاد الثالث' }}</label>
+            <input type="number" min="1" formControlName="thirdSessionOccurrenceRequiredManagementMembersCount"
+              class="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm outline-none focus:border-[#0C447C]" />
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h2 class="mb-3 text-sm font-semibold text-gray-700">
+          {{ lang() === 'en' ? 'Members quorum' : 'نصاب الأعضاء' }}
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div>
+            <label class="mb-1.5 block text-sm font-medium text-gray-700">{{ lang() === 'en' ? 'First session' : 'الانعقاد الأول' }}</label>
+            <input type="number" min="1" formControlName="firstSessionOccurrenceRequiredMembersCount"
+              class="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm outline-none focus:border-[#0C447C]" />
+          </div>
+          <div>
+            <label class="mb-1.5 block text-sm font-medium text-gray-700">{{ lang() === 'en' ? 'Second session' : 'الانعقاد الثاني' }}</label>
+            <input type="number" min="1" formControlName="secondSessionOccurrenceRequiredMembersCount"
+              class="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm outline-none focus:border-[#0C447C]" />
+          </div>
+          <div>
+            <label class="mb-1.5 block text-sm font-medium text-gray-700">{{ lang() === 'en' ? 'Third session' : 'الانعقاد الثالث' }}</label>
+            <input type="number" min="1" formControlName="thirdSessionOccurrenceRequiredMembersCount"
+              class="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm outline-none focus:border-[#0C447C]" />
+          </div>
+        </div>
+      </div>
+
+      <div class="pt-2">
+        <button type="submit" [disabled]="saving"
+          class="rounded-lg bg-[#0C447C] px-4 py-2 text-sm font-semibold text-white hover:bg-[#0a3a6a] disabled:opacity-70">
+          {{ submitLabel }}
+        </button>
+      </div>
+    </form>
+  }
+</div>

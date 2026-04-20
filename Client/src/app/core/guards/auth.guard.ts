@@ -49,3 +49,22 @@ export const notAuthGuard: CanActivateFn = (route, state) => {
   }
   return true; // User is not authenticated, allow access
 };
+
+export const adminGuard: CanActivateFn = () => {
+  const router = inject(Router);
+  const tokenService = inject(TokenService);
+  const lang = inject(LanguageService).lang();
+
+  const token = tokenService.getToken();
+  const rawUser = localStorage.getItem('user');
+  const user = rawUser ? JSON.parse(rawUser) : null;
+
+  if (!token || !user?.roles) {
+    return router.createUrlTree([lang, 'dashboard']);
+  }
+
+  const roles = Array.isArray(user.roles) ? user.roles : String(user.roles).split(',');
+  const isAdmin = roles.some((role: string) => role.trim().toLowerCase() === 'admin');
+
+  return isAdmin ? true : router.createUrlTree([lang, 'dashboard']);
+};

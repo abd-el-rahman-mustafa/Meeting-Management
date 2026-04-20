@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { Login } from './pages/auth/login/login';
 import { Register } from './pages/auth/register/register';
-import { authGuard, notAuthGuard } from './core/guards/auth.guard';
+import { adminGuard, authGuard, notAuthGuard } from './core/guards/auth.guard';
 import { langGuard } from './core/guards/lang.guard';
 import { redirectToLangGuard } from './core/guards/redirect-to-lang.guard';
 import { Layout } from './pages/layout/layout';
@@ -32,6 +32,7 @@ export const routes: Routes = [
           // meeting categories
           {
             path: 'meeting-categories',
+            canActivate: [adminGuard],
             children: [
               {
                 path: '',
@@ -49,6 +50,12 @@ export const routes: Routes = [
                   import('./pages/meeting-categories/manage/meeting-categories-manage').then((m) => m.MeetingCategoriesManage),
               },
             ],
+          },
+          {
+            path: 'meeting-settings',
+            canActivate: [adminGuard],
+            loadComponent: () =>
+              import('./pages/meeting-settings/manage/meeting-settings-manage').then((m) => m.MeetingSettingsManage),
           }
 
         ]
