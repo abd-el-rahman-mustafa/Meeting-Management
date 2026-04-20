@@ -3,8 +3,10 @@ using API.Infrastructure.Data;
 using API.Middleware;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.FileProviders;
+using SQLitePCL;
 
 var builder = WebApplication.CreateBuilder(args);
+Batteries_V2.Init();
 
 builder.Services.AddControllers();
 builder.Services.AddApplicationServices(builder.Configuration);
@@ -30,7 +32,7 @@ if (!builder.Environment.IsDevelopment())
 {
     builder.Configuration.AddInMemoryCollection(new Dictionary<string, string?>
     {
-        ["ConnectionStrings:DefaultConnection"] = "Data Source=app.db",
+        ["ConnectionStrings:DefaultConnection"] = "Data Source=app.db;Password=kL9#xP2$mQv&7wR",
         ["JwtSettings:SecretKey"] = "your-super-secret-key-at-least-32-chars",
         ["JwtSettings:Issuer"] = "your-app",
         ["JwtSettings:Audience"] = "your-app",

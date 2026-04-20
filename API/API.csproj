@@ -28,6 +28,9 @@
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="10.0.5" />
     <PackageReference Include="Seq.Extensions.Logging" Version="9.0.0" />
+    <PackageReference Include="SQLitePCLRaw.bundle_e_sqlcipher">
+      <Version>2.1.11</Version>
+    </PackageReference>
   </ItemGroup>
 
 </Project>
