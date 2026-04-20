@@ -4,6 +4,7 @@ import { UserTokenData } from '../../../pages/auth/auth.interface';
 import { TokenService } from '../../services/token.service';
 import { isPlatformBrowser } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
+import { PageTitleService } from '../../services/page-title.service';
 
 @Component({
   selector: 'app-base-component',
@@ -16,6 +17,7 @@ export class BaseComponent {
   private langService = inject(LanguageService);
   tokenService = inject(TokenService);
   toastr = inject(ToastrService);
+  pageTitleService = inject(PageTitleService);
   user: UserTokenData | null = null;
   lang = this.langService.lang;
   toggleLang = () => this.langService.toggleLang();
@@ -48,6 +50,10 @@ export class BaseComponent {
       : this.user.roles.split(',');
 
     return sourceRoles.some((userRole) => userRole.trim().toLowerCase() === role.toLowerCase());
+  }
+
+  setPageTitle(title: string) {
+    this.pageTitleService.setTitle(title);
   }
 
   get isAdmin(): boolean {

@@ -35,11 +35,6 @@ export const routes: Routes = [
             canActivate: [adminGuard],
             children: [
               {
-                path: '',
-                loadComponent: () =>
-                  import('./pages/meeting/meeting-categories/list/meeting-categories-list').then((m) => m.MeetingCategoriesList),
-              },
-              {
                 path: 'new',
                 loadComponent: () =>
                   import('./pages/meeting/meeting-categories/manage/meeting-categories-manage').then((m) => m.MeetingCategoriesManage),

@@ -8,16 +8,7 @@ import { BaseComponent } from '../../core/components/base-component/base-compone
 import { LanguageBtn } from "../../shared/components/language-btn/language-btn";
 
 import { UserMenuComponent } from '../../shared/components/user-menu/user-menu';
-
-const ROUTE_TITLES: Record<string, string> = {
-  '/dashboard':  'Dashboard',
-  '/properties': 'Properties',
-  '/tenants':    'Tenants',
-  '/contracts':  'Contracts',
-  '/payments':   'Payments',
-  '/reports':    'Reports',
-  '/settings':   'Settings',
-};
+import { PageTitleService } from '../../core/services/page-title.service';
 
 @Component({
   selector: 'app-navbar',
@@ -27,21 +18,6 @@ const ROUTE_TITLES: Record<string, string> = {
   styleUrl: './navbar.css',
 })
 export class NavbarComponent extends BaseComponent {
-  private router = inject(Router);
 
-
-  private currentUrl = toSignal(
-    this.router.events.pipe(
-      filter(e => e instanceof NavigationEnd),
-      map(e => (e as NavigationEnd).urlAfterRedirects)
-    ),
-    { initialValue: this.router.url }
-  );
-
-  pageTitle = computed(() => {
-    const url = this.currentUrl() ?? '';
-    const matched = Object.keys(ROUTE_TITLES).find(k => url.startsWith(k));
-    return matched ? ROUTE_TITLES[matched] : 'rent ms';
-  });
-
+  pageTitle = this.pageTitleService.pageTitle;
 }
