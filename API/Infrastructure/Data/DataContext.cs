@@ -17,6 +17,7 @@ public partial class DataContext : IdentityDbContext<AppUser, AppRole, int, Iden
     public DbSet<AppRole> AppRoles { get; set; }
     public DbSet<AppUserRole> AppUserRoles { get; set; }
     public DbSet<MeetingCategory> MeetingCategories { get; set; }
+    public DbSet<MeetingType> MeetingTypes { get; set; }
     public DbSet<MeetingSettings> MeetingSettings { get; set; }
     
 
