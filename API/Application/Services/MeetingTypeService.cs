@@ -22,6 +22,7 @@ public class MeetingTypeService : IMeetingTypeService
     {
         var types = await _context.MeetingTypes
             .AsNoTracking()
+             .OrderByDescending(x => x.CreatedAt)
             .Select(x => MapToDto(x))
             .ToListAsync();
 

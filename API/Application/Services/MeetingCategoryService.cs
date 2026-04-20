@@ -22,6 +22,7 @@ public class MeetingCategoryService : IMeetingCategoryService
     {
         var categories = await _context.MeetingCategories
             .AsNoTracking()
+            .OrderByDescending(x => x.CreatedAt)
             .Select(x => MapToDto(x))
             .ToListAsync();
 
