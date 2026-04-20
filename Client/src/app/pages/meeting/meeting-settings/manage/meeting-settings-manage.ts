@@ -5,13 +5,13 @@ import { BaseComponent } from '../../../../core/components/base-component/base-c
 import { MeetingSettingsService } from '../meeting-settings.service';
 import { UpsertMeetingSettingsDto } from '../meeting-settings.interface';
 import { ToastrService } from 'ngx-toastr';
-import { MeetingCategory } from '../../meeting-categories/meeting-category.interface';
-import { MeetingCategoriesService } from '../../meeting-categories/meeting-categories.service';
-import { LangRouterLinkDirective } from '../../../../core/directives/lang-router-link.directive';
+import { MeetingCategory } from '../meeting-categories/meeting-category.interface';
+import { MeetingCategoriesService } from '../meeting-categories/meeting-categories.service';
 import { FormInput } from '../../../../shared/components/input/input';
+import { MeetingTypes } from '../meeting-types/meeting-types';
 @Component({
   selector: 'app-meeting-settings-manage',
-  imports: [CommonModule, ReactiveFormsModule, LangRouterLinkDirective, FormInput],
+  imports: [CommonModule, ReactiveFormsModule, FormInput,MeetingTypes],
   templateUrl: './meeting-settings-manage.html',
   styleUrl: './meeting-settings-manage.css',
 })
