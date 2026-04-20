@@ -3,11 +3,9 @@ namespace API.Domain.Entities;
 public class Meeting : BaseEntity
 {
     // main data
-    public string Code { get; set; } = null!; // e.g. "MTG-2024-0001"
+    public string Code { get; set; } = null!; // e.g. generated automatically from the system  "MTG-2024-0001"
     public string Title { get; set; } = null!; // e.g. "Project Kickoff"
-    public string TitleAr { get; set; } = null!; // e.g. "بدء المشروع"
     public string Description { get; set; } = null!; // e.g. "Initial meeting to discuss project scope and deliverables."
-    public string DescriptionAr { get; set; } = null!; // e.g. "الاجتماع الأول لمناقشة نطاق المشروع والتسليمات."
     public DateTimeOffset StartTime { get; set; } // e.g. "2024-07-01T10:00:00Z" dynamically set upon starting the meeting
     public DateTimeOffset EndTime { get; set; } // e.g. "2024-07-01T11:00:00Z" dynamically set upon ending the meeting
     public LocationType LocationType { get; set; } // e.g. LocationType.Online or LocationType.Hybrid
@@ -20,20 +18,15 @@ public class Meeting : BaseEntity
     public int MeetingTypeId { get; set; } // e.g. 1 for "Team Meeting", 2 for "Client Meeting", etc.
     public MeetingType MeetingType { get; set; } = null!;
 
-    public string MeetingTypeCode { get; set; } = null!; // e.g. "TEAM_MEETING", "CLIENT_MEETING", "PROJECT_UPDATE"
     public string MeetingTypeName { get; set; } = null!; // e.g. "Team Meeting", "Client Meeting", "Project Update"
-    public string MeetingTypeNameAr { get; set; } = null!; // e.g. "اجتماع الفريق", "اجتماع العميل", "تحديث المشروع"
     public string MeetingTypeDescription { get; set; } = null!; // e.g. "Regular team meetings to discuss project progress and blockers."
-    public string MeetingTypeDescriptionAr { get; set; } = null!; // e.g. "اجتماعات الفريق المنتظمة لمناقشة تقدم المشروع والعقبات."
 
     // Meeting Category
     public int MeetingCategoryId { get; set; } // e.g. 1 for "Strategic", 2 for "Operational", etc.
     public MeetingCategory MeetingCategory { get; set; } = null!;
-    public string MeetingCategoryCode { get; set; } = null!; // e.g. "STRATEGIC", "OPERATIONAL", "PROJECT"
+    
     public string MeetingCategoryName { get; set; } = null!; // e.g. "Strategic Meeting", "Operational Meeting", "Project Meeting"
-    public string MeetingCategoryNameAr { get; set; } = null!; // e.g. "اجتماع استراتيجي", "اجتماع تشغيلي", "اجتماع مشروع"
     public string MeetingCategoryDescription { get; set; } = null!; // e.g
-    public string MeetingCategoryDescriptionAr { get; set; } = null!; // e.g. "الاجتماعات التي تركز على التخطيط الاستراتيجي واتخاذ القرار."
 
 
     // Attendees & Observers
