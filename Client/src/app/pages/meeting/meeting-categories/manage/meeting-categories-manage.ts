@@ -39,6 +39,8 @@ export class MeetingCategoriesManage extends BaseComponent implements OnInit {
     if (this.categoryId !== null && !Number.isNaN(this.categoryId)) {
       this.loadForEdit(this.categoryId);
     }
+
+    this.setPageTitle(this.pageTitle);
   }
 
   get pageTitle(): string {

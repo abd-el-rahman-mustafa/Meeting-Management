@@ -12,7 +12,7 @@ export class MeetingSettingsService {
   private http = inject(HttpClient);
   private readonly url = `${environment.API_URL}meeting-settings`;
 
-  get(): Observable<MeetingSettings> {
+  getSessionOccurrences(): Observable<MeetingSettings> {
     return this.http
       .get<ApiResponse<MeetingSettings>>(this.url)
       .pipe(map((res) => res.data));
