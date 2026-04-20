@@ -1,15 +1,37 @@
-<div class="max-w-4xl p-6">
-  <div class="mb-6">
-    <h1 class="font-['Playfair_Display'] text-2xl font-bold text-[#0C447C]">
-      {{ lang() === 'en' ? 'Meeting Settings' : 'إعدادات الاجتماعات' }}
-    </h1>
-    <p class="mt-1 text-sm text-gray-400">
-      {{
-        lang() === 'en'
-          ? 'Set required members per meeting session occurrence.'
-          : 'حدد الأعداد المطلوبة لكل انعقاد من الاجتماع.'
-      }}
-    </p>
+<!-- Meeting Quorum -->
+<div class="p-6 flex flex-col gap-6">
+  <div class="flex items-center justify-between gap-3">
+    <div class="mb-6">
+      <h1 class="font-['Playfair_Display'] text-2xl font-bold text-[#0C447C]">
+        {{ lang() === 'en' ? 'Quorum  Settings' : 'إعدادات النصاب' }}
+      </h1>
+      <p class="mt-0.5 font-['DM_Sans'] text-sm text-gray-400">
+        {{
+          lang() === 'en'
+            ? 'Set required members per meeting session occurrence.'
+            : 'حدد الأعداد المطلوبة لكل انعقاد من الاجتماع.'
+        }}
+      </p>
+    </div>
+
+    <button
+      class="inline-flex items-center gap-2 rounded-lg bg-[#0C447C] px-4 py-2 text-sm font-semibold text-white hover:bg-[#0a3a6a] transition-colors"
+      [disabled]="savingSessionOccurrences"
+      (click)="onSubmitSessionOccurrenceForm()"
+    >
+      <i class="fa-regular fa-floppy-disk"></i>
+      <span>
+        {{
+          savingSessionOccurrences
+            ? lang() === 'en'
+              ? 'Saving...'
+              : 'جاري الحفظ...'
+            : lang() === 'en'
+              ? 'Save Quorum'
+              : 'حفظ النصاب'
+        }}</span
+      >
+    </button>
   </div>
 
   @if (loadingSessionOccurrences) {
@@ -19,72 +41,70 @@
   } @else {
     <form
       [formGroup]="sessionOccurrenceForm"
-      (ngSubmit)="onSubmit()"
-      class="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm space-y-6"
+      class="rounded-2xl border border-gray-100 bg-white shadow-sm overflow-hidden"
     >
-      <div>
-        <h2 class="mb-3 text-sm font-semibold text-gray-700">
-          {{ lang() === 'en' ? 'Management quorum' : 'نصاب الإدارة' }}
-        </h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div>
-            <label class="mb-1.5 block text-sm font-medium text-gray-700">{{
-              lang() === 'en' ? 'First session' : 'الانعقاد الأول'
-            }}</label>
+      <!-- Management Quorum Row -->
+      <div class="border-b border-gray-100">
+        <div class="px-5 py-3.5 bg-gray-50/60">
+          <span class="text-[11px] font-semibold uppercase tracking-widest text-gray-400">
+            {{ lang() === 'en' ? 'Management Quorum' : 'نصاب الإدارة' }}
+          </span>
+        </div>
+        <div class="grid grid-cols-3 divide-x divide-gray-100">
+          <div class="px-5 py-4">
             <app-input
+              [label]="lang() === 'en' ? 'First Session' : 'الانعقاد الأول'"
               type="number"
               min="1"
               formControlName="firstSessionOccurrenceRequiredManagementMembersCount"
-            ></app-input>
+            />
           </div>
-          <div>
-            <label class="mb-1.5 block text-sm font-medium text-gray-700">{{
-              lang() === 'en' ? 'Second session' : 'الانعقاد الثاني'
-            }}</label>
+          <div class="px-5 py-4">
             <app-input
+              [label]="lang() === 'en' ? 'Second Session' : 'الانعقاد الثاني'"
               type="number"
               min="1"
               formControlName="secondSessionOccurrenceRequiredManagementMembersCount"
-            >
-            </app-input>
+            />
           </div>
-          <div>
-            <label class="mb-1.5 block text-sm font-medium text-gray-700">{{
-              lang() === 'en' ? 'Third session' : 'الانعقاد الثالث'
-            }}</label>
+          <div class="px-5 py-4">
             <app-input
+              [label]="lang() === 'en' ? 'Third Session' : 'الانعقاد الثالث'"
               type="number"
               min="1"
               formControlName="thirdSessionOccurrenceRequiredManagementMembersCount"
-            ></app-input>
+            />
           </div>
         </div>
       </div>
 
+      <!-- Members Quorum Row -->
       <div>
-        <h2 class="mb-3 text-sm font-semibold text-gray-700">
-          {{ lang() === 'en' ? 'Members quorum' : 'نصاب الأعضاء' }}
-        </h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div>
+        <div class="px-5 py-3.5 bg-gray-50/60">
+          <span class="text-[11px] font-semibold uppercase tracking-widest text-gray-400">
+            {{ lang() === 'en' ? 'Members Quorum' : 'نصاب الأعضاء' }}
+          </span>
+        </div>
+        <div class="grid grid-cols-3 divide-x divide-gray-100">
+          <div class="px-5 py-4">
             <app-input
-              [title]="lang() === 'en' ? 'First session' : 'الانعقاد الأول'"
+              [label]="lang() === 'en' ? 'First Session' : 'الانعقاد الأول'"
               type="number"
               min="1"
               formControlName="firstSessionOccurrenceRequiredMembersCount"
             />
           </div>
-          <div>
+          <div class="px-5 py-4">
             <app-input
-              [title]="lang() === 'en' ? 'Second session' : 'الانعقاد الثاني'"
+              [label]="lang() === 'en' ? 'Second Session' : 'الانعقاد الثاني'"
               type="number"
               min="1"
               formControlName="secondSessionOccurrenceRequiredMembersCount"
             />
           </div>
-          <div>
+          <div class="px-5 py-4">
             <app-input
-              [title]="lang() === 'en' ? 'Third session' : 'الانعقاد الثالث'"
+              [label]="lang() === 'en' ? 'Third Session' : 'الانعقاد الثالث'"
               type="number"
               min="1"
               formControlName="thirdSessionOccurrenceRequiredMembersCount"
@@ -92,28 +112,11 @@
           </div>
         </div>
       </div>
-
-      <div class="pt-2">
-        <button
-          type="submit"
-          [disabled]="saving"
-          class="rounded-lg bg-[#0C447C] px-4 py-2 text-sm font-semibold text-white hover:bg-[#0a3a6a] disabled:opacity-70"
-        >
-          {{
-            saving
-              ? lang() === 'en'
-                ? 'Saving...'
-                : 'جاري الحفظ...'
-              : lang() === 'en'
-                ? 'Save Settings'
-                : 'حفظ الإعدادات'
-          }}
-        </button>
-      </div>
     </form>
   }
 </div>
 
+<!-- Meeting Categories -->
 <div class="p-6 flex flex-col gap-6">
   <div class="flex items-center justify-between gap-3">
     <div>
@@ -129,12 +132,13 @@
       </p>
     </div>
 
-    <a
+    <button
       class="inline-flex items-center gap-2 rounded-lg bg-[#0C447C] px-4 py-2 text-sm font-semibold text-white hover:bg-[#0a3a6a] transition-colors"
+      (click)="addNewCategory()"
     >
       <i class="fa-solid fa-plus"></i>
       <span>{{ lang() === 'en' ? 'Add Category' : 'إضافة تصنيف' }}</span>
-    </a>
+    </button>
   </div>
 
   <div class="rounded-2xl border border-gray-100 bg-white shadow-sm overflow-hidden">
@@ -150,12 +154,7 @@
             <th
               class="px-5 py-3.5 text-start text-[11px] font-semibold uppercase tracking-widest text-gray-400"
             >
-              {{ lang() === 'en' ? 'Name (EN)' : 'الاسم (EN)' }}
-            </th>
-            <th
-              class="px-5 py-3.5 text-start text-[11px] font-semibold uppercase tracking-widest text-gray-400"
-            >
-              {{ lang() === 'en' ? 'Name (AR)' : 'الاسم (AR)' }}
+              {{ lang() === 'en' ? 'Name' : 'الاسم ' }}
             </th>
             <th
               class="px-5 py-3.5 text-start text-[11px] font-semibold uppercase tracking-widest text-gray-400"
@@ -174,30 +173,69 @@
             </tr>
           } @else {
             @for (category of categories; track category.id) {
-              <tr class="border-b border-gray-50 hover:bg-[#F4F8FD] transition-colors duration-150">
-                <td class="px-5 py-3.5 text-sm text-gray-700">{{ category.code }}</td>
-                <td class="px-5 py-3.5 text-sm text-gray-700">{{ category.name }}</td>
-                <td class="px-5 py-3.5 text-sm text-gray-700">{{ category.nameAr }}</td>
-                <td class="px-5 py-3.5">
-                  <div class="flex items-center gap-2">
-                    <a
-                      [routerLink]="['meeting-categories', category.id, 'edit']"
-                      class="inline-flex items-center gap-1 rounded-md bg-[#E6F1FB] px-2.5 py-1.5 text-xs font-semibold text-[#0C447C] hover:bg-[#d6e7f8]"
-                    >
-                      <i class="fa-solid fa-pen-to-square"></i>
-                      <span>{{ lang() === 'en' ? 'Edit' : 'تعديل' }}</span>
-                    </a>
-                    <button
-                      type="button"
-                      (click)="onDeleteCategory(category)"
-                      class="inline-flex items-center gap-1 rounded-md bg-red-50 px-2.5 py-1.5 text-xs font-semibold text-red-600 hover:bg-red-100"
-                    >
-                      <i class="fa-solid fa-trash"></i>
-                      <span>{{ lang() === 'en' ? 'Delete' : 'حذف' }}</span>
-                    </button>
-                  </div>
-                </td>
-              </tr>
+              @if (category.id === editingCategoryId) {
+                <tr [formGroup]="newCategoryForm" class="border-b border-gray-50 bg-blue-50/30">
+                  <td class="px-5 py-3.5">
+                    <app-input
+                      [label]="lang() === 'en' ? 'Code' : 'الكود'"
+                      formControlName="code"
+                    />
+                  </td>
+                  <td class="px-5 py-3.5">
+                    <app-input
+                      [label]="lang() === 'en' ? 'Name ' : 'الاسم '"
+                      formControlName="name"
+                    />
+                  </td>
+
+                  <td class="px-5 py-3.5">
+                    <div class="flex items-center gap-2 h-full">
+                      <button
+                        type="button"
+                        (click)="saveNewCategory()"
+                        class="flex-1 inline-flex items-center justify-center gap-1 rounded-md bg-green-50 px-2.5 py-1.5 text-xs font-semibold text-green-600 hover:bg-green-100"
+                      >
+                        <i class="fa-solid fa-check"></i>
+                        <span>{{ lang() === 'en' ? 'Save' : 'حفظ' }}</span>
+                      </button>
+                      <button
+                        type="button"
+                        (click)="cancelNewCategory()"
+                        class="flex-1 inline-flex items-center justify-center gap-1 rounded-md bg-red-50 px-2.5 py-1.5 text-xs font-semibold text-red-600 hover:bg-red-100"
+                      >
+                        <i class="fa-solid fa-xmark"></i>
+                        <span>{{ lang() === 'en' ? 'Cancel' : 'إلغاء' }}</span>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              } @else {
+                <tr
+                  class="border-b border-gray-50 hover:bg-[#F4F8FD] transition-colors duration-150"
+                >
+                  <td class="px-5 py-3.5 text-sm text-gray-700">{{ category.code }}</td>
+                  <td class="px-5 py-3.5 text-sm text-gray-700">{{ category.name }}</td>
+                  <td class="px-5 py-3.5">
+                    <div class="flex items-center gap-2">
+                      <a
+                        [routerLink]="['meeting-categories', category.id, 'edit']"
+                        class="inline-flex items-center gap-1 rounded-md bg-[#E6F1FB] px-2.5 py-1.5 text-xs font-semibold text-[#0C447C] hover:bg-[#d6e7f8]"
+                      >
+                        <i class="fa-solid fa-pen-to-square"></i>
+                        <span>{{ lang() === 'en' ? 'Edit' : 'تعديل' }}</span>
+                      </a>
+                      <button
+                        type="button"
+                        (click)="onDeleteCategory(category)"
+                        class="inline-flex items-center gap-1 rounded-md bg-red-50 px-2.5 py-1.5 text-xs font-semibold text-red-600 hover:bg-red-100"
+                      >
+                        <i class="fa-solid fa-trash"></i>
+                        <span>{{ lang() === 'en' ? 'Delete' : 'حذف' }}</span>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              }
             } @empty {
               <tr>
                 <td colspan="4" class="px-5 py-10 text-center text-sm text-gray-400">

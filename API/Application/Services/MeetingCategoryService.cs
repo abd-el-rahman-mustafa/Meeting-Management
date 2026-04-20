@@ -56,7 +56,7 @@ public class MeetingCategoryService : IMeetingCategoryService
 
     public async Task<ServiceResult<MeetingCategoryDto>> CreateAsync(UpsertMeetingCategoryDto payload)
     {
-        var duplicate = await EnsureCodeUniqueAsync(payload.Code);
+        var duplicate = await EnsureNameUniqueAsync(payload.Name);
         if (duplicate is not null)
         {
             return duplicate;
@@ -64,11 +64,8 @@ public class MeetingCategoryService : IMeetingCategoryService
 
         var category = new MeetingCategory
         {
-            Code = payload.Code.Trim(),
             Name = payload.Name.Trim(),
-            NameAr = payload.NameAr.Trim(),
             Description = payload.Description.Trim(),
-            DescriptionAr = payload.DescriptionAr.Trim(),
         };
 
         _context.MeetingCategories.Add(category);
@@ -94,17 +91,14 @@ public class MeetingCategoryService : IMeetingCategoryService
             );
         }
 
-        var duplicate = await EnsureCodeUniqueAsync(payload.Code, id);
+        var duplicate = await EnsureNameUniqueAsync(payload.Name, id);
         if (duplicate is not null)
         {
             return duplicate;
         }
 
-        category.Code = payload.Code.Trim();
         category.Name = payload.Name.Trim();
-        category.NameAr = payload.NameAr.Trim();
         category.Description = payload.Description.Trim();
-        category.DescriptionAr = payload.DescriptionAr.Trim();
         category.UpdatedAt = DateTimeOffset.UtcNow;
 
         await _context.SaveChangesAsync();
@@ -137,12 +131,12 @@ public class MeetingCategoryService : IMeetingCategoryService
         );
     }
 
-    private async Task<ServiceResult<MeetingCategoryDto>?> EnsureCodeUniqueAsync(string code, int? excludeId = null)
+    private async Task<ServiceResult<MeetingCategoryDto>?> EnsureNameUniqueAsync(string name, int? excludeId = null)
     {
-        var normalizedCode = code.Trim().ToUpperInvariant();
+        var normalizedCode = name.Trim().ToUpperInvariant();
 
         var exists = await _context.MeetingCategories.AnyAsync(x =>
-            x.Code.ToUpper() == normalizedCode &&
+            x.Name.ToUpper() == normalizedCode &&
             (!excludeId.HasValue || x.Id != excludeId.Value));
 
         if (exists)
@@ -150,8 +144,8 @@ public class MeetingCategoryService : IMeetingCategoryService
             return ServiceResult<MeetingCategoryDto>.Failure(
                 title: _language == "ar" ? "تعارض في البيانات" : "Conflict",
                 detail: _language == "ar"
-                    ? "كود تصنيف الاجتماع مستخدم بالفعل."
-                    : "Meeting category code already exists.",
+                    ? " تصنيف الاجتماع مستخدم بالفعل."
+                    : "Meeting category name already exists.",
                 statusCode: StatusCodes.Status409Conflict
             );
         }
@@ -164,11 +158,8 @@ public class MeetingCategoryService : IMeetingCategoryService
         return new MeetingCategoryDto
         {
             Id = entity.Id,
-            Code = entity.Code,
             Name = entity.Name,
-            NameAr = entity.NameAr,
             Description = entity.Description,
-            DescriptionAr = entity.DescriptionAr,
         };
     }
 }

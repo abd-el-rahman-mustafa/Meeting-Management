@@ -51,9 +51,8 @@ public static class WebApplicationExtensions
         }
 
 
-        // Seed roles and users
+        // Seed initial data (roles, users, etc.)
         var userManager = scope.ServiceProvider.GetRequiredService<UserManager<AppUser>>();
-        var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<AppRole>>();
-        await DataSeeder.SeedAsync(userManager, roleManager);
+        await DataSeeder.SeedAsync(dbContext,userManager);
     }
 }

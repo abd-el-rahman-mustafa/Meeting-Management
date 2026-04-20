@@ -1,20 +1,24 @@
 using API.Domain.Constants;
 using API.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Infrastructure.Data;
 
 public static class DataSeeder
 {
-    public static async Task SeedAsync(UserManager<AppUser> userManager, RoleManager<AppRole> roleManager)
+    public static async Task SeedAsync(DataContext context, UserManager<AppUser> userManager)
     {
-        await SeedRolesAsync(roleManager);
+        await SeedRolesAsync(context);
         await SeedUsersAsync(userManager);
+
+        // await SeedMeetingTypesAsync(context);
+        await SeedMeetingCategoriesAsync(context);
     }
 
     // ─── Roles ───────────────────────────────────────────────────────────────
 
-    private static async Task SeedRolesAsync(RoleManager<AppRole> roleManager)
+    private static async Task SeedRolesAsync(DataContext context)
     {
         var roles = new List<AppRole>
         {
@@ -45,11 +49,14 @@ public static class DataSeeder
             
         };
 
+        var CurrentRoles = await context.Roles.ToListAsync();
         foreach (var role in roles)
         {
-            if (!await roleManager.RoleExistsAsync(role.Name!))
-                await roleManager.CreateAsync(role);
+            if (CurrentRoles.Any(r => r.Name != role.Name))
+                await context.Roles.AddAsync(role);
         }
+
+        await context.SaveChangesAsync();
     }
 
     // ─── Users ────────────────────────────────────────────────────────────────
@@ -76,67 +83,6 @@ public static class DataSeeder
                 "Admin@1234",
                 Roles.Admin
             ),
-            (
-                new AppUser
-                {
-                    UserName  = "user",
-                    Email     = "user@example.com",
-                    FirstName = "Regular",
-                    LastName  = "User",
-                    Gender    = Gender.Male,
-                    CreatedAt = now,
-                    UpdatedAt = now,
-                    IsActive  = true
-                },
-                "User@1234",
-                Roles.User
-
-            ),
-                (
-                    new AppUser
-                    {
-                        UserName  = "Samir",
-                        Email     = "Samir@example.com",
-                        FirstName = "Samir",
-                        LastName  = "Example",
-                        Gender    = Gender.Male,
-                        CreatedAt = now,
-                        UpdatedAt = now,
-                        IsActive  = true
-                    },
-                    "Samir@1234",
-                    Roles.User
-                ),
-                (
-                    new AppUser
-                    {
-                        UserName  = "Sara",
-                        Email     = "Sara@example.com",
-                        FirstName = "Sara",
-                        LastName  = "Example",
-                        Gender    = Gender.Female,
-                        CreatedAt = now,
-                        UpdatedAt = now,
-                        IsActive  = true
-                    },
-                    "Sara@1234",
-                    Roles.User
-                )
-                ,(
-                    new AppUser
-                    {
-                        UserName  = "Heba",
-                        Email     = "Heba@example.com",
-                        FirstName = "Heba",
-                        LastName  = "Example",
-                        Gender    = Gender.Female,
-                        CreatedAt = now,
-                        UpdatedAt = now,
-                        IsActive  = true
-                    },
-                    "Heba@1234",
-                    Roles.User
-                ),
                 (
                     new AppUser
                     {
@@ -151,7 +97,7 @@ public static class DataSeeder
                     },
                     "Omar@1234",
                     Roles.User
-                )
+            )
 
         };
         Console.WriteLine("Seeding users...");
@@ -177,5 +123,71 @@ public static class DataSeeder
             }
         }
         Console.WriteLine("User seeding completed.");
+    }
+
+    // private static async Task SeedMeetingTypesAsync(DataContext context)
+    // {
+    //     if (context.MeetingTypes.Any())
+    //         return; // Already seeded
+
+    //     var meetingTypes = new List<MeetingType>
+    //     {
+    //         new MeetingType
+    //         {
+    //             Code = "TEAM_MEETING",
+    //             Name = "Team Meeting",
+    //             NameAr = "اجتماع الفريق",
+    //             Description = "Regular team meetings to discuss project progress and blockers.",
+    //             DescriptionAr = "اجتماعات الفريق المنتظمة لمناقشة تقدم المشروع والعقبات."
+    //         },
+    //         new MeetingType
+    //         {
+    //             Code = "CLIENT_MEETING",
+    //             Name = "Client Meeting",
+    //             NameAr = "اجتماع العميل",
+    //             Description = "Meetings with clients to discuss requirements and feedback.",
+    //             DescriptionAr = "اجتماعات مع العملاء لمناقشة المتطلبات والتغذية الراجعة."
+    //         },
+    //         new MeetingType
+    //         {
+    //             Code = "PROJECT_UPDATE",
+    //             Name = "Project Update",
+    //             NameAr = "تحديث المشروع",
+    //             Description = "Meetings focused on providing updates on project status and milestones.",
+    //             DescriptionAr = "اجتماعات تركز على تقديم تحديثات حول حالة المشروع والمعالم."
+    //         }
+    //     };
+
+    //     context.MeetingTypes.AddRange(meetingTypes);
+    //     await context.SaveChangesAsync();
+    // }
+
+    // meeting categories 
+    private static async Task SeedMeetingCategoriesAsync(DataContext context)
+    {
+        if (context.MeetingCategories.Any())
+            return; // Already seeded
+
+        var categories = new List<MeetingCategory>
+        {
+            new MeetingCategory
+            {
+                Name = "دوري",
+                Description = "اجتماعات منتظمة تحدث بشكل دوري، مثل الاجتماعات الأسبوعية أو الشهرية لمتابعة تقدم العمل ومناقشة القضايا المستمرة.",
+            },
+            new MeetingCategory
+            {
+                Name = "طارئ",
+                Description = "اجتماعات غير مخطط لها تحدث استجابة لحدث أو مشكلة طارئة تتطلب اهتمامًا فوريًا، مثل اجتماع لمناقشة أزمة أو مشكلة حرجة في المشروع.",
+            },
+            new MeetingCategory
+            {
+               Name = "أمانة",
+                Description = "اجتماعات تركز على مسائل الأمانة والامتثال، مثل اجتماعات لمراجعة السياسات والإجراءات أو مناقشة قضايا الامتثال التنظيمي."
+            }
+        };
+
+        context.MeetingCategories.AddRange(categories);
+        await context.SaveChangesAsync();
     }
 }
