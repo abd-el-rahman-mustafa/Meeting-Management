@@ -27,11 +27,8 @@ export class MeetingSettingsManage extends BaseComponent implements OnInit {
   editingCategoryId: number | null = null;
 
   newCategoryForm = this.fb.nonNullable.group({
-    code: ['', [Validators.required, Validators.maxLength(50)]],
     name: ['', [Validators.required, Validators.maxLength(150)]],
-    nameAr: ['', [Validators.required, Validators.maxLength(150)]],
     description: ['', [Validators.required, Validators.maxLength(500)]],
-    descriptionAr: ['', [Validators.required, Validators.maxLength(500)]],
   });
 
   sessionOccurrenceForm: FormGroup = new FormGroup({});
@@ -42,8 +39,6 @@ export class MeetingSettingsManage extends BaseComponent implements OnInit {
     this.loadCategories();
     this.setPageTitle(this.lang() === 'en' ? 'Meeting Settings' : 'إعدادات الاجتماع');
   }
-
-
 
   sessionOccurrenceFormInitialize() {
     this.sessionOccurrenceForm = this.fb.nonNullable.group({
@@ -92,7 +87,9 @@ export class MeetingSettingsManage extends BaseComponent implements OnInit {
         this.sessionOccurrenceForm.patchValue(settings);
         this.savingSessionOccurrences = false;
         this.toastr.success(
-          this.lang() === 'en' ? 'Quorum Settings updated successfully' : 'تم تحديث إعدادات النصاب بنجاح',
+          this.lang() === 'en'
+            ? 'Quorum Settings updated successfully'
+            : 'تم تحديث إعدادات النصاب بنجاح',
         );
       },
       error: () => {
@@ -100,14 +97,13 @@ export class MeetingSettingsManage extends BaseComponent implements OnInit {
       },
     });
   }
-///////////////////////////////////////////////////////////////////////////////////
-// Meeting Categories Management
-///////////////////////////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////////////////////////
+  // Meeting Categories Management
+  ///////////////////////////////////////////////////////////////////////////////////
   addNewCategory(): void {
     // ADD A NEW EDITABLE RAW TO THE TOP OF THE TABLE
     const newCategory: MeetingCategory = {
       id: 0, // Temporary ID for new category
-      code: '',
       name: '',
       description: '',
     };
@@ -125,6 +121,14 @@ export class MeetingSettingsManage extends BaseComponent implements OnInit {
       error: () => {
         this.loadingCategories = false;
       },
+    });
+  }
+
+  updateCategory(category: MeetingCategory): void {
+    this.editingCategoryId = category.id;
+    this.newCategoryForm.patchValue({
+      name: category.name,
+      description: category.description,
     });
   }
 
@@ -155,28 +159,38 @@ export class MeetingSettingsManage extends BaseComponent implements OnInit {
     }
 
     const payload = this.newCategoryForm.getRawValue();
-    this.meetingCategoriesService.create(payload).subscribe({
-      next: (newCategory) => {
-        // Replace the temporary category with the saved one
-        const index = this.categories.findIndex(c => c.id === 0);
-        if (index !== -1) {
-          this.categories[index] = newCategory;
-        }
-        this.editingCategoryId = null;
-        this.toastr.success(
-          this.lang() === 'en' ? 'Category added successfully' : 'تم إضافة التصنيف بنجاح',
-        );
-      },
-      error: () => {
-        // Handle error
-      },
-    });
+    const isNew = this.editingCategoryId === 0;
+
+    if (isNew) {
+      this.meetingCategoriesService.create(payload).subscribe({
+        next: (newCategory) => {
+          const index = this.categories.findIndex((c) => c.id === 0);
+          if (index !== -1) this.categories[index] = newCategory;
+          this.editingCategoryId = null;
+          this.toastr.success(
+            this.lang() === 'en' ? 'Category added successfully' : 'تم إضافة التصنيف بنجاح',
+          );
+        },
+      });
+    } else {
+      this.meetingCategoriesService.update(this.editingCategoryId!, payload).subscribe({
+        next: (updatedCategory) => {
+          const index = this.categories.findIndex((c) => c.id === this.editingCategoryId);
+          if (index !== -1) this.categories[index] = updatedCategory;
+          this.editingCategoryId = null;
+          this.toastr.success(
+            this.lang() === 'en' ? 'Category updated successfully' : 'تم تحديث التصنيف بنجاح',
+          );
+        },
+      });
+    }
   }
 
- 
-
   cancelNewCategory(): void {
-    this.categories = this.categories.filter(c => c.id !== 0);
+    // Only remove the temporary row when adding new; editing restores the display row automatically
+    if (this.editingCategoryId === 0) {
+      this.categories = this.categories.filter((c) => c.id !== 0);
+    }
     this.editingCategoryId = null;
   }
 }

@@ -29,23 +29,6 @@ export const routes: Routes = [
             ]
           },
 
-          // meeting categories
-          {
-            path: 'meeting-categories',
-            canActivate: [adminGuard],
-            children: [
-              {
-                path: 'new',
-                loadComponent: () =>
-                  import('./pages/meeting/meeting-categories/manage/meeting-categories-manage').then((m) => m.MeetingCategoriesManage),
-              },
-              {
-                path: ':id/edit',
-                loadComponent: () =>
-                  import('./pages/meeting/meeting-categories/manage/meeting-categories-manage').then((m) => m.MeetingCategoriesManage),
-              },
-            ],
-          },
           {
             path: 'meeting-settings',
             canActivate: [adminGuard],

@@ -35,12 +35,6 @@ export class MenuComponent extends BaseComponent {
       icon: 'fa-solid fa-calendar',
     },
     {
-      label: this.lang()== 'en'? 'Meeting Categories' : 'تصنيفات الاجتماعات',
-      route: '/meeting-categories',
-      icon: 'fa-solid fa-layer-group',
-      adminOnly: true,
-    },
-    {
       label: this.lang()== 'en'? 'Meeting Settings' : 'إعدادات الاجتماعات',
       route: '/meeting-settings',
       icon: 'fa-solid fa-sliders',
