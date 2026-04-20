@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { BaseComponent } from '../../../core/components/base-component/base-component';
-import { LangRouterLinkDirective } from '../../../core/directives/lang-router-link.directive';
+import { BaseComponent } from '../../../../core/components/base-component/base-component';
+import { LangRouterLinkDirective } from '../../../../core/directives/lang-router-link.directive';
 import { MeetingCategory } from '../meeting-category.interface';
 import { MeetingCategoriesService } from '../meeting-categories.service';
 

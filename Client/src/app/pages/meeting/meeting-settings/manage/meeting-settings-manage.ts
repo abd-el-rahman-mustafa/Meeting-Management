@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { BaseComponent } from '../../../core/components/base-component/base-component';
+import { BaseComponent } from '../../../../core/components/base-component/base-component';
 import { MeetingSettingsService } from '../meeting-settings.service';
 import { UpsertMeetingSettingsDto } from '../meeting-settings.interface';
 import { ToastrService } from 'ngx-toastr';

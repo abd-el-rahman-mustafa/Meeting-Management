@@ -37,17 +37,17 @@ export const routes: Routes = [
               {
                 path: '',
                 loadComponent: () =>
-                  import('./pages/meeting-categories/list/meeting-categories-list').then((m) => m.MeetingCategoriesList),
+                  import('./pages/meeting/meeting-categories/list/meeting-categories-list').then((m) => m.MeetingCategoriesList),
               },
               {
                 path: 'new',
                 loadComponent: () =>
-                  import('./pages/meeting-categories/manage/meeting-categories-manage').then((m) => m.MeetingCategoriesManage),
+                  import('./pages/meeting/meeting-categories/manage/meeting-categories-manage').then((m) => m.MeetingCategoriesManage),
               },
               {
                 path: ':id/edit',
                 loadComponent: () =>
-                  import('./pages/meeting-categories/manage/meeting-categories-manage').then((m) => m.MeetingCategoriesManage),
+                  import('./pages/meeting/meeting-categories/manage/meeting-categories-manage').then((m) => m.MeetingCategoriesManage),
               },
             ],
           },
@@ -55,7 +55,7 @@ export const routes: Routes = [
             path: 'meeting-settings',
             canActivate: [adminGuard],
             loadComponent: () =>
-              import('./pages/meeting-settings/manage/meeting-settings-manage').then((m) => m.MeetingSettingsManage),
+              import('./pages/meeting/meeting-settings/manage/meeting-settings-manage').then((m) => m.MeetingSettingsManage),
           }
 
         ]

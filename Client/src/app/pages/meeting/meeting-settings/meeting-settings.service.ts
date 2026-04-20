@@ -1,8 +1,8 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
-import { environment } from '../../../env/env.dev';
-import { ApiResponse } from '../../core/interfaces/api.interface';
+import { environment } from '../../../../env/env.dev';
+import { ApiResponse } from '../../../core/interfaces/api.interface';
 import { MeetingSettings, UpsertMeetingSettingsDto } from './meeting-settings.interface';
 
 @Injectable({

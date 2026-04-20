@@ -1,9 +1,9 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
-import { environment } from '../../../env/env.dev';
+import { environment } from '../../../../env/env.dev';
 import { MeetingCategory, UpsertMeetingCategoryDto } from './meeting-category.interface';
-import { ApiResponse } from '../../core/interfaces/api.interface';
+import { ApiResponse } from '../../../core/interfaces/api.interface';
 
 @Injectable({
   providedIn: 'root',

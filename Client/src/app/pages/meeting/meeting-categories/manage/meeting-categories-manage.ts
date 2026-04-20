@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit, computed, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BaseComponent } from '../../../core/components/base-component/base-component';
+import { BaseComponent } from '../../../../core/components/base-component/base-component';
 import { MeetingCategoriesService } from '../meeting-categories.service';
 import { UpsertMeetingCategoryDto } from '../meeting-category.interface';
 
