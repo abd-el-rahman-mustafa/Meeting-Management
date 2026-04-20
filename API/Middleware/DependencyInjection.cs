@@ -28,6 +28,7 @@ public static class DependencyInjection
         services.AddScoped<IUserService, UserService>();
         services.AddScoped<IMeetingCategoryService, MeetingCategoryService>();
         services.AddScoped<IMeetingSettingsService, MeetingSettingsService>();
+        services.AddScoped<IMeetingTypeService, MeetingTypeService>();
 
 
         // Register RequestContext for accessing request-specific data
