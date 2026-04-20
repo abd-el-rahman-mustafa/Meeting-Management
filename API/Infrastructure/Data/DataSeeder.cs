@@ -12,7 +12,7 @@ public static class DataSeeder
         await SeedRolesAsync(context);
         await SeedUsersAsync(userManager);
 
-        // await SeedMeetingTypesAsync(context);
+        await SeedMeetingTypesAsync(context);
         await SeedMeetingCategoriesAsync(context);
     }
 
@@ -125,42 +125,30 @@ public static class DataSeeder
         Console.WriteLine("User seeding completed.");
     }
 
-    // private static async Task SeedMeetingTypesAsync(DataContext context)
-    // {
-    //     if (context.MeetingTypes.Any())
-    //         return; // Already seeded
+    private static async Task SeedMeetingTypesAsync(DataContext context)
+    {
+        if (context.MeetingTypes.Any())
+            return; // Already seeded
 
-    //     var meetingTypes = new List<MeetingType>
-    //     {
-    //         new MeetingType
-    //         {
-    //             Code = "TEAM_MEETING",
-    //             Name = "Team Meeting",
-    //             NameAr = "اجتماع الفريق",
-    //             Description = "Regular team meetings to discuss project progress and blockers.",
-    //             DescriptionAr = "اجتماعات الفريق المنتظمة لمناقشة تقدم المشروع والعقبات."
-    //         },
-    //         new MeetingType
-    //         {
-    //             Code = "CLIENT_MEETING",
-    //             Name = "Client Meeting",
-    //             NameAr = "اجتماع العميل",
-    //             Description = "Meetings with clients to discuss requirements and feedback.",
-    //             DescriptionAr = "اجتماعات مع العملاء لمناقشة المتطلبات والتغذية الراجعة."
-    //         },
-    //         new MeetingType
-    //         {
-    //             Code = "PROJECT_UPDATE",
-    //             Name = "Project Update",
-    //             NameAr = "تحديث المشروع",
-    //             Description = "Meetings focused on providing updates on project status and milestones.",
-    //             DescriptionAr = "اجتماعات تركز على تقديم تحديثات حول حالة المشروع والمعالم."
-    //         }
-    //     };
+        var meetingTypes = new List<MeetingType>
+        {
+            new MeetingType
+            {
+                Name = "مجلس إدارة",
+                Description = "اجتماعات لمناقشة استراتيجيات الشركة واتخاذ القرارات الهامة.",
+            },
+            new MeetingType
+            {
 
-    //     context.MeetingTypes.AddRange(meetingTypes);
-    //     await context.SaveChangesAsync();
-    // }
+                Name = "لجنة",
+                Description = "اجتماعات تركز على مناقشة موضوع معين أو مشروع محدد، مثل لجنة تخطيط المشروع أو لجنة مراجعة الأداء."
+            },
+
+        };
+
+        context.MeetingTypes.AddRange(meetingTypes);
+        await context.SaveChangesAsync();
+    }
 
     // meeting categories 
     private static async Task SeedMeetingCategoriesAsync(DataContext context)
