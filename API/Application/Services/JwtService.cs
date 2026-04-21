@@ -43,12 +43,12 @@ public class JwtService : IJwtService
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
             // 3. Create the JWT token with claims, signing credentials, and expiration
 
-            var expires = DateTimeOffset.UtcNow.AddMinutes(_tokenSettings.ExpiryMinutes);
+            var expires = DateTime.Now.AddMinutes(_tokenSettings.ExpiryMinutes);
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
-                Expires = expires.UtcDateTime,
+                Expires = expires.ToUniversalTime(),
                 SigningCredentials = creds
             };
             var tokenHandler = new JwtSecurityTokenHandler();

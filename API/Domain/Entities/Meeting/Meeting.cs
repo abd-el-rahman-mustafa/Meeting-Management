@@ -6,8 +6,8 @@ public class Meeting : BaseEntity
     public string Code { get; set; } = null!; // e.g. generated automatically from the system  "MTG-2024-0001"
     public string Title { get; set; } = null!; // e.g. "Project Kickoff"
     public string Description { get; set; } = null!; // e.g. "Initial meeting to discuss project scope and deliverables."
-    public DateTimeOffset StartTime { get; set; } // e.g. "2024-07-01T10:00:00Z" dynamically set upon starting the meeting
-    public DateTimeOffset EndTime { get; set; } // e.g. "2024-07-01T11:00:00Z" dynamically set upon ending the meeting
+    public DateTime StartTime { get; set; } // e.g. "2024-07-01T10:00:00Z" dynamically set upon starting the meeting
+    public DateTime EndTime { get; set; } // e.g. "2024-07-01T11:00:00Z" dynamically set upon ending the meeting
     public LocationType LocationType { get; set; } // e.g. LocationType.Online or LocationType.Hybrid
     public string? Location { get; set; } // e.g. "https://zoom.us/j/123456789" for online or "Conference Room A" for hybrid or in-person
 

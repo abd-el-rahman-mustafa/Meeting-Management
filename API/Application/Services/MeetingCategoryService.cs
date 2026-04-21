@@ -100,7 +100,7 @@ public class MeetingCategoryService : IMeetingCategoryService
 
         category.Name = payload.Name.Trim();
         category.Description = payload.Description.Trim();
-        category.UpdatedAt = DateTimeOffset.UtcNow;
+        category.UpdatedAt = DateTime.Now;
 
         await _context.SaveChangesAsync();
         return ServiceResult<MeetingCategoryDto>.Success(

@@ -63,7 +63,7 @@ public static class DataSeeder
 
     private static async Task SeedUsersAsync(UserManager<AppUser> userManager)
     {
-        var now = DateTimeOffset.UtcNow;
+        var now = DateTime.Now;
 
         var seedUsers = new List<(AppUser User, string Password, string Role)>
         {

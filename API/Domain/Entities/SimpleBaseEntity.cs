@@ -11,7 +11,7 @@ namespace API.Domain.Entities;
 
         [Key]
         public int Id { get; set; }
-        public DateTimeOffset? CreatedAt { get; set; }
+        public DateTime? CreatedAt { get; set; }
         public bool IsDeleted { get; set; }
         public bool IsActive { get; set; } = true;
     }

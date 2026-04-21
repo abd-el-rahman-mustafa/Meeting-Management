@@ -100,7 +100,7 @@ public class MeetingTypeService : IMeetingTypeService
 
         types.Name = payload.Name.Trim();
         types.Description = payload.Description.Trim();
-        types.UpdatedAt = DateTimeOffset.UtcNow;
+        types.UpdatedAt = DateTime.Now;
 
         await _context.SaveChangesAsync();
         return ServiceResult<MeetingTypeDto>.Success(

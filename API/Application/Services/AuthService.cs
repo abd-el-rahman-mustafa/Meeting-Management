@@ -46,8 +46,8 @@ public class AuthService : IAuthService
             UserName = registerDto.Email,
             // PhoneNumber = registerDto.Phone,
             Gender = Gender.NotSpecified,
-            CreatedAt = DateTimeOffset.UtcNow,
-            UpdatedAt = DateTimeOffset.UtcNow,
+            CreatedAt = DateTime.Now,
+            UpdatedAt = DateTime.Now,
         };
 
 
