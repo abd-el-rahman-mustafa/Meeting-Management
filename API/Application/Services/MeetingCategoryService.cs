@@ -66,7 +66,6 @@ public class MeetingCategoryService : IMeetingCategoryService
         var category = new MeetingCategory
         {
             Name = payload.Name.Trim(),
-            Description = payload.Description.Trim(),
         };
 
         _context.MeetingCategories.Add(category);
@@ -99,7 +98,6 @@ public class MeetingCategoryService : IMeetingCategoryService
         }
 
         category.Name = payload.Name.Trim();
-        category.Description = payload.Description.Trim();
         category.UpdatedAt = DateTime.Now;
 
         await _context.SaveChangesAsync();
@@ -160,7 +158,6 @@ public class MeetingCategoryService : IMeetingCategoryService
         {
             Id = entity.Id,
             Name = entity.Name,
-            Description = entity.Description,
         };
     }
 }

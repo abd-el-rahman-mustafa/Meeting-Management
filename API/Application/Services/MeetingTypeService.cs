@@ -66,7 +66,6 @@ public class MeetingTypeService : IMeetingTypeService
         var types = new MeetingType
         {
             Name = payload.Name.Trim(),
-            Description = payload.Description.Trim(),
         };
 
         _context.MeetingTypes.Add(types);
@@ -99,7 +98,6 @@ public class MeetingTypeService : IMeetingTypeService
         }
 
         types.Name = payload.Name.Trim();
-        types.Description = payload.Description.Trim();
         types.UpdatedAt = DateTime.Now;
 
         await _context.SaveChangesAsync();
@@ -160,7 +158,6 @@ public class MeetingTypeService : IMeetingTypeService
         {
             Id = entity.Id,
             Name = entity.Name,
-            Description = entity.Description,
         };
     }
 }
