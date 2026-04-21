@@ -7,9 +7,9 @@ namespace API.Infrastructure.Data;
 
 public static class DataSeeder
 {
-    public static async Task SeedAsync(DataContext context, UserManager<AppUser> userManager)
+    public static async Task SeedAsync(DataContext context, UserManager<AppUser> userManager, RoleManager<AppRole> roleManager)
     {
-        await SeedRolesAsync(context);
+        await SeedRolesAsync(roleManager);
         await SeedUsersAsync(userManager);
 
         await SeedMeetingTypesAsync(context);
@@ -19,7 +19,7 @@ public static class DataSeeder
 
     // ─── Roles ───────────────────────────────────────────────────────────────
 
-    private static async Task SeedRolesAsync(DataContext context)
+    private static async Task SeedRolesAsync(RoleManager<AppRole> roleManager)
     {
         var roles = new List<AppRole>
         {
@@ -50,14 +50,17 @@ public static class DataSeeder
             
         };
 
-        var CurrentRoles = await context.Roles.ToListAsync();
         foreach (var role in roles)
         {
-            if (CurrentRoles.Any(r => r.Name != role.Name))
-                await context.Roles.AddAsync(role);
+            if (!await roleManager.RoleExistsAsync(role.Name!))
+            {
+                var result = await roleManager.CreateAsync(role);
+                if (!result.Succeeded)
+                {
+                    Console.WriteLine($"Failed to create role {role.Name}: {string.Join(", ", result.Errors.Select(e => e.Description))}");
+                }
+            }
         }
-
-        await context.SaveChangesAsync();
     }
 
     // ─── Users ────────────────────────────────────────────────────────────────

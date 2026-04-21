@@ -8,9 +8,10 @@ import { ToastrService } from 'ngx-toastr';
 import { FormInput } from '../../../../shared/components/input/input';
 import { MeetingCategories } from '../meeting-categories/meeting-categories';
 import { MeetingTypes } from '../meeting-types/meeting-types';
+import { MeetingLevels } from '../meeting-levels/meeting-levels';
 @Component({
   selector: 'app-meeting-settings-manage',
-  imports: [CommonModule, ReactiveFormsModule, FormInput, MeetingCategories, MeetingTypes],
+  imports: [CommonModule, ReactiveFormsModule, FormInput, MeetingCategories, MeetingTypes, MeetingLevels],
   templateUrl: './meeting-settings-manage.html',
   styleUrl: './meeting-settings-manage.css',
 })
