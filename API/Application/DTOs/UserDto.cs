@@ -1,3 +1,5 @@
+using API.Domain.Entities;
+
 namespace API.Application.DTOs;
 
 public class simpleUserInfoDto
@@ -10,5 +12,6 @@ public class simpleUserInfoDto
     public string? PhoneNumber { get; set; }
     public bool PhoneNumberConfirmed { get; set; }
    public bool IsActive { get; set; } = true;
+   public Gender Gender { get; set; }
 }
 

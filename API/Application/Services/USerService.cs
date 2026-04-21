@@ -30,7 +30,9 @@ public class UserService : IUserService
             EmailConfirmed = u.EmailConfirmed,
             PhoneNumber = u.PhoneNumber,
             PhoneNumberConfirmed = u.PhoneNumberConfirmed,
-            IsActive = u.IsActive
+            IsActive = u.IsActive,
+            Gender = u.Gender
+
         }).ToListAsync();
 
         return users;
@@ -44,6 +46,11 @@ public class UserService : IUserService
             FirstName = u.FirstName,
             LastName = u.LastName,
             Email = u.Email ?? "",
+            EmailConfirmed = u.EmailConfirmed,
+            PhoneNumber = u.PhoneNumber,
+            PhoneNumberConfirmed = u.PhoneNumberConfirmed,
+            IsActive = u.IsActive,
+            Gender = u.Gender
         }).FirstOrDefaultAsync();
 
         if (user == null)
@@ -62,6 +69,11 @@ public class UserService : IUserService
             FirstName = u.FirstName,
             LastName = u.LastName,
             Email = u.Email ?? "",
+            Gender = u.Gender,
+            EmailConfirmed = u.EmailConfirmed,
+            PhoneNumber = u.PhoneNumber,
+            PhoneNumberConfirmed = u.PhoneNumberConfirmed,
+            IsActive = u.IsActive
         }).ToList();
     }
 
