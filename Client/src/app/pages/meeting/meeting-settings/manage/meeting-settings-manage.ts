@@ -27,8 +27,9 @@ export class MeetingSettingsManage extends BaseComponent implements OnInit {
     { key: 'categories', labelEn: 'Categories', labelAr: 'التصنيفات', icon: 'fa-solid fa-tags' },
     { key: 'types', labelEn: 'Types', labelAr: 'الأنواع', icon: 'fa-solid fa-layer-group' },
     { key: 'levels', labelEn: 'Levels', labelAr: 'المستويات', icon: 'fa-solid fa-chart-bar' },
+    { key: 'settings', labelEn: 'Settings', labelAr: 'الإعدادات', icon: 'fa-solid fa-gears' },
   ];
-  
+
   ngOnInit(): void {
     this.setPageTitle(this.lang() === 'en' ? 'Meeting Settings' : 'إعدادات الاجتماع');
   }
