@@ -13,11 +13,11 @@ import { MeetingCategoriesService } from './meeting-categories.service';
 })
 export class MeetingCategories extends BaseComponent {
 
-private meetingCategoriesService = inject(MeetingCategoriesService);
-private fb = inject(FormBuilder);
+  private meetingCategoriesService = inject(MeetingCategoriesService);
+  private fb = inject(FormBuilder);
 
-loadingCategories = false;
-categories: MeetingCategory[] = [];
+  loadingCategories = false;
+  categories: MeetingCategory[] = [];
   editingCategoryId: number | null = null;
 
   newCategoryForm = this.fb.nonNullable.group({
@@ -27,14 +27,13 @@ categories: MeetingCategory[] = [];
 
 
   ngOnInit(): void {
-  this.loadCategories();
-}
-///////////////////////////////////////////////////////////////////////////////////
-// Meeting Categories Management
-///////////////////////////////////////////////////////////////////////////////////
+    this.loadCategories();
+  }
+
   ///////////////////////////////////////////////////////////////////////////////////
   // Meeting Categories Management
   ///////////////////////////////////////////////////////////////////////////////////
+
   addNewCategory(): void {
     // ADD A NEW EDITABLE RAW TO THE TOP OF THE TABLE
     const newCategory: MeetingCategory = {

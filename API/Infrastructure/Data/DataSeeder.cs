@@ -14,6 +14,7 @@ public static class DataSeeder
 
         await SeedMeetingTypesAsync(context);
         await SeedMeetingCategoriesAsync(context);
+        await SeedMeetingLevelsAsync(context);
     }
 
     // ─── Roles ───────────────────────────────────────────────────────────────
@@ -125,6 +126,7 @@ public static class DataSeeder
         Console.WriteLine("User seeding completed.");
     }
 
+    // ─── Meeting Types ───────────────────────────────────────────────────────────────
     private static async Task SeedMeetingTypesAsync(DataContext context)
     {
         if (context.MeetingTypes.Any())
@@ -150,7 +152,7 @@ public static class DataSeeder
         await context.SaveChangesAsync();
     }
 
-    // meeting categories 
+    // ─── Meeting Categories ───────────────────────────────────────────────────────────────
     private static async Task SeedMeetingCategoriesAsync(DataContext context)
     {
         if (context.MeetingCategories.Any())
@@ -176,6 +178,45 @@ public static class DataSeeder
         };
 
         context.MeetingCategories.AddRange(categories);
+        await context.SaveChangesAsync();
+    }
+
+    // ─── Meeting Levels ───────────────────────────────────────────────────────────────
+    private static async Task SeedMeetingLevelsAsync(DataContext context)
+    {
+        if (context.MeetingLevels.Any())
+            return; // Already seeded
+
+        var levels = new List<MeetingLevel>
+        {
+            new MeetingLevel
+            {
+                Name = "شركة",
+                Description = "اجتماعات على مستوى الشركة.",
+            },
+            new MeetingLevel
+            {
+                Name = "إدارة",
+                Description = "اجتماعات على مستوى الإدارة.",
+            },
+            new MeetingLevel
+            {
+                Name = "قسم",
+                Description = "اجتماعات على مستوى القسم.",
+            },
+            new MeetingLevel
+            {
+                Name = "مشروع",
+                Description = "اجتماعات على مستوى المشروع.",
+            },
+            new MeetingLevel
+            {
+                Name = "فريق عمل",
+                Description = "اجتماعات على مستوى فريق العمل.",
+            }
+        };
+
+        context.MeetingLevels.AddRange(levels);
         await context.SaveChangesAsync();
     }
 }
