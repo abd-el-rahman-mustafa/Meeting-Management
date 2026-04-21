@@ -9,85 +9,27 @@ import { FormInput } from '../../../../shared/components/input/input';
 import { MeetingCategories } from '../meeting-categories/meeting-categories';
 import { MeetingTypes } from '../meeting-types/meeting-types';
 import { MeetingLevels } from '../meeting-levels/meeting-levels';
+import { MeetingQuorum } from '../meeting-quorum/meeting-quorum';
 @Component({
   selector: 'app-meeting-settings-manage',
-  imports: [CommonModule, ReactiveFormsModule, FormInput, MeetingCategories, MeetingTypes, MeetingLevels],
+  imports: [CommonModule, ReactiveFormsModule, FormInput, MeetingCategories, MeetingTypes, MeetingLevels, MeetingQuorum],
   templateUrl: './meeting-settings-manage.html',
   styleUrl: './meeting-settings-manage.css',
 })
 export class MeetingSettingsManage extends BaseComponent implements OnInit {
-  private fb = inject(FormBuilder);
-  private meetingSettingsService = inject(MeetingSettingsService);
 
-  loadingSessionOccurrences = false;
-  
-  savingSessionOccurrences = false;
-  
-
-  sessionOccurrenceForm: FormGroup = new FormGroup({});
 
   ngOnInit(): void {
-    this.sessionOccurrenceFormInitialize();
-    this.loadSessionOccurrences();
     this.setPageTitle(this.lang() === 'en' ? 'Meeting Settings' : 'إعدادات الاجتماع');
   }
 
-  sessionOccurrenceFormInitialize() {
-    this.sessionOccurrenceForm = this.fb.nonNullable.group({
-      firstSessionOccurrenceRequiredManagementMembersCount: [
-        1,
-        [Validators.required, Validators.min(1)],
-      ],
-      secondSessionOccurrenceRequiredManagementMembersCount: [
-        1,
-        [Validators.required, Validators.min(1)],
-      ],
-      thirdSessionOccurrenceRequiredManagementMembersCount: [
-        1,
-        [Validators.required, Validators.min(1)],
-      ],
-      firstSessionOccurrenceRequiredMembersCount: [1, [Validators.required, Validators.min(1)]],
-      secondSessionOccurrenceRequiredMembersCount: [1, [Validators.required, Validators.min(1)]],
-      thirdSessionOccurrenceRequiredMembersCount: [1, [Validators.required, Validators.min(1)]],
-    });
-  }
 
-  loadSessionOccurrences(): void {
-    this.loadingSessionOccurrences = true;
-    this.meetingSettingsService.getSessionOccurrences().subscribe({
-      next: (settings) => {
-        this.sessionOccurrenceForm.patchValue(settings);
-        this.loadingSessionOccurrences = false;
-      },
-      error: () => {
-        this.loadingSessionOccurrences = false;
-      },
-    });
-  }
+  activeTab = 'quorum';
 
-  onSubmitSessionOccurrenceForm(): void {
-    if (this.sessionOccurrenceForm.invalid) {
-      this.sessionOccurrenceForm.markAllAsTouched();
-      return;
-    }
-
-    const payload: UpsertMeetingSettingsDto = this.sessionOccurrenceForm.getRawValue();
-    this.savingSessionOccurrences = true;
-
-    this.meetingSettingsService.update(payload).subscribe({
-      next: (settings) => {
-        this.sessionOccurrenceForm.patchValue(settings);
-        this.savingSessionOccurrences = false;
-        this.toastr.success(
-          this.lang() === 'en'
-            ? 'Quorum Settings updated successfully'
-            : 'تم تحديث إعدادات النصاب بنجاح',
-        );
-      },
-      error: () => {
-        this.savingSessionOccurrences = false;
-      },
-    });
-  }
-
+tabs = [
+  { key: 'quorum',     labelEn: 'Quorum',     labelAr: 'النصاب',     icon: 'fa-solid fa-users-line' },
+  { key: 'categories', labelEn: 'Categories', labelAr: 'التصنيفات',  icon: 'fa-solid fa-tags' },
+  { key: 'types',      labelEn: 'Types',      labelAr: 'الأنواع',    icon: 'fa-solid fa-layer-group' },
+  { key: 'levels',     labelEn: 'Levels',     labelAr: 'المستويات',  icon: 'fa-solid fa-chart-bar' },
+];
 }

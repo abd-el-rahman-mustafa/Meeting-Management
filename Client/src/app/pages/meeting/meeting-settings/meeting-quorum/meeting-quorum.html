@@ -1,0 +1,99 @@
+ <div class="flex flex-col gap-6">
+          <div class="flex items-center justify-between gap-3">
+            <div>
+              <h2 class="font-['DM_Sans'] text-base font-bold text-gray-700">
+                {{ lang() === 'en' ? 'Quorum Settings' : 'إعدادات النصاب' }}
+              </h2>
+              <p class="mt-0.5 font-['DM_Sans'] text-sm text-gray-400">
+                {{ lang() === 'en' ? 'Set required members per meeting session occurrence.' : 'حدد الأعداد المطلوبة لكل انعقاد من الاجتماع.' }}
+              </p>
+            </div>
+            <button
+              class="inline-flex items-center gap-2 rounded-lg bg-[#0C447C] px-4 py-2 text-sm font-semibold text-white hover:bg-[#0a3a6a] transition-colors"
+              [disabled]="savingSessionOccurrences"
+              (click)="onSubmitSessionOccurrenceForm()"
+            >
+              <i class="fa-regular fa-floppy-disk"></i>
+              <span>{{
+                savingSessionOccurrences
+                  ? lang() === 'en' ? 'Saving...' : 'جاري الحفظ...'
+                  : lang() === 'en' ? 'Save Quorum'  : 'حفظ النصاب'
+              }}</span>
+            </button>
+          </div>
+
+          @if (loadingSessionOccurrences) {
+            <div class="rounded-xl border border-gray-100 bg-white p-8 text-center text-sm text-gray-400">
+              {{ lang() === 'en' ? 'Loading settings...' : 'جاري تحميل الإعدادات...' }}
+            </div>
+          } @else {
+            <form
+              [formGroup]="sessionOccurrenceForm"
+              class="rounded-2xl border border-gray-100 bg-white shadow-sm overflow-hidden"
+            >
+              <!-- Management Quorum Row -->
+              <div class="border-b border-gray-100">
+                <div class="px-5 py-3.5 bg-gray-50/60">
+                  <span class="text-[11px] font-semibold uppercase tracking-widest text-gray-400">
+                    {{ lang() === 'en' ? 'Management Quorum' : 'نصاب الإدارة' }}
+                  </span>
+                </div>
+                <div class="grid grid-cols-3 divide-x divide-gray-100">
+                  <div class="px-5 py-4">
+                    <app-input
+                      [label]="lang() === 'en' ? 'First Session' : 'الانعقاد الأول'"
+                      type="number" min="1"
+                      formControlName="firstSessionOccurrenceRequiredManagementMembersCount"
+                    />
+                  </div>
+                  <div class="px-5 py-4">
+                    <app-input
+                      [label]="lang() === 'en' ? 'Second Session' : 'الانعقاد الثاني'"
+                      type="number" min="1"
+                      formControlName="secondSessionOccurrenceRequiredManagementMembersCount"
+                    />
+                  </div>
+                  <div class="px-5 py-4">
+                    <app-input
+                      [label]="lang() === 'en' ? 'Third Session' : 'الانعقاد الثالث'"
+                      type="number" min="1"
+                      formControlName="thirdSessionOccurrenceRequiredManagementMembersCount"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <!-- Members Quorum Row -->
+              <div>
+                <div class="px-5 py-3.5 bg-gray-50/60">
+                  <span class="text-[11px] font-semibold uppercase tracking-widest text-gray-400">
+                    {{ lang() === 'en' ? 'Members Quorum' : 'نصاب الأعضاء' }}
+                  </span>
+                </div>
+                <div class="grid grid-cols-3 divide-x divide-gray-100">
+                  <div class="px-5 py-4">
+                    <app-input
+                      [label]="lang() === 'en' ? 'First Session' : 'الانعقاد الأول'"
+                      type="number" min="1"
+                      formControlName="firstSessionOccurrenceRequiredMembersCount"
+                    />
+                  </div>
+                  <div class="px-5 py-4">
+                    <app-input
+                      [label]="lang() === 'en' ? 'Second Session' : 'الانعقاد الثاني'"
+                      type="number" min="1"
+                      formControlName="secondSessionOccurrenceRequiredMembersCount"
+                    />
+                  </div>
+                  <div class="px-5 py-4">
+                    <app-input
+                      [label]="lang() === 'en' ? 'Third Session' : 'الانعقاد الثالث'"
+                      type="number" min="1"
+                      formControlName="thirdSessionOccurrenceRequiredMembersCount"
+                    />
+                  </div>
+                </div>
+              </div>
+            </form>
+          }
+        </div>
