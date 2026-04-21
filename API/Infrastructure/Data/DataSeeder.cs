@@ -140,13 +140,11 @@ public static class DataSeeder
             new MeetingType
             {
                 Name = "مجلس إدارة",
-                Description = "اجتماعات لمناقشة استراتيجيات الشركة واتخاذ القرارات الهامة.",
             },
             new MeetingType
             {
 
                 Name = "لجنة",
-                Description = "اجتماعات تركز على مناقشة موضوع معين أو مشروع محدد، مثل لجنة تخطيط المشروع أو لجنة مراجعة الأداء."
             },
 
         };
@@ -166,17 +164,14 @@ public static class DataSeeder
             new MeetingCategory
             {
                 Name = "دوري",
-                Description = "اجتماعات منتظمة تحدث بشكل دوري، مثل الاجتماعات الأسبوعية أو الشهرية لمتابعة تقدم العمل ومناقشة القضايا المستمرة.",
             },
             new MeetingCategory
             {
                 Name = "طارئ",
-                Description = "اجتماعات غير مخطط لها تحدث استجابة لحدث أو مشكلة طارئة تتطلب اهتمامًا فوريًا، مثل اجتماع لمناقشة أزمة أو مشكلة حرجة في المشروع.",
             },
             new MeetingCategory
             {
                Name = "أمانة",
-                Description = "اجتماعات تركز على مسائل الأمانة والامتثال، مثل اجتماعات لمراجعة السياسات والإجراءات أو مناقشة قضايا الامتثال التنظيمي."
             }
         };
 
@@ -195,27 +190,22 @@ public static class DataSeeder
             new MeetingLevel
             {
                 Name = "شركة",
-                Description = "اجتماعات على مستوى الشركة.",
             },
             new MeetingLevel
             {
                 Name = "إدارة",
-                Description = "اجتماعات على مستوى الإدارة.",
             },
             new MeetingLevel
             {
                 Name = "قسم",
-                Description = "اجتماعات على مستوى القسم.",
             },
             new MeetingLevel
             {
                 Name = "مشروع",
-                Description = "اجتماعات على مستوى المشروع.",
             },
             new MeetingLevel
             {
                 Name = "فريق عمل",
-                Description = "اجتماعات على مستوى فريق العمل.",
             }
         };
 

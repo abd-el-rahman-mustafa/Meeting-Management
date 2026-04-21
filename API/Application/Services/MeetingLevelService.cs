@@ -66,7 +66,6 @@ public class MeetingLevelService : IMeetingLevelService
         var level = new MeetingLevel
         {
             Name = payload.Name.Trim(),
-            Description = payload.Description.Trim(),
         };
 
         _context.MeetingLevels.Add(level);
@@ -99,7 +98,6 @@ public class MeetingLevelService : IMeetingLevelService
         }
 
         level.Name = payload.Name.Trim();
-        level.Description = payload.Description.Trim();
         level.UpdatedAt = DateTime.Now;
 
         await _context.SaveChangesAsync();
@@ -160,7 +158,6 @@ public class MeetingLevelService : IMeetingLevelService
         {
             Id = entity.Id,
             Name = entity.Name,
-            Description = entity.Description,
         };
     }
 }

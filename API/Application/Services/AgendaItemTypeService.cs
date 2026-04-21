@@ -66,7 +66,6 @@ public class AgendaItemTypeService : IAgendaItemTypeService
         var types = new AgendaItemType
         {
             Name = payload.Name.Trim(),
-            Description = payload.Description.Trim(),
         };
 
         _context.AgendaItemTypes.Add(types);
@@ -99,7 +98,6 @@ public class AgendaItemTypeService : IAgendaItemTypeService
         }
 
         types.Name = payload.Name.Trim();
-        types.Description = payload.Description.Trim();
         types.UpdatedAt = DateTime.Now;
 
         await _context.SaveChangesAsync();
@@ -160,7 +158,6 @@ public class AgendaItemTypeService : IAgendaItemTypeService
         {
             Id = entity.Id,
             Name = entity.Name,
-            Description = entity.Description,
         };
     }
 }

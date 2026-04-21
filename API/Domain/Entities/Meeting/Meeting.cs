@@ -17,16 +17,13 @@ public class Meeting : BaseEntity
     // meeting type 
     public int MeetingTypeId { get; set; } // e.g. 1 for "Team Meeting", 2 for "Client Meeting", etc.
     public MeetingType MeetingType { get; set; } = null!;
-
     public string MeetingTypeName { get; set; } = null!; // e.g. "Team Meeting", "Client Meeting", "Project Update"
-    public string MeetingTypeDescription { get; set; } = null!; // e.g. "Regular team meetings to discuss project progress and blockers."
 
     // Meeting Category
     public int MeetingCategoryId { get; set; } // e.g. 1 for "Strategic", 2 for "Operational", etc.
     public MeetingCategory MeetingCategory { get; set; } = null!;
     
     public string MeetingCategoryName { get; set; } = null!; // e.g. "Strategic Meeting", "Operational Meeting", "Project Meeting"
-    public string MeetingCategoryDescription { get; set; } = null!; // e.g
 
 
     // Attendees & Observers

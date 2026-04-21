@@ -33,11 +33,11 @@
             >
            {{ lang() === 'en' ? 'Name' : 'الاسم ' }}
             </th>
-            <th
+            <!-- <th
               class="px-5 py-3.5 text-start text-[11px] font-semibold uppercase tracking-widest text-gray-400"
             >
               {{ lang() === 'en' ? 'Description' : 'الوصف ' }}
-            </th>
+            </th> -->
             <th
               class="px-5 py-3.5 text-start text-[11px] font-semibold uppercase tracking-widest text-gray-400"
             >
@@ -63,12 +63,12 @@
                       formControlName="name"
                     />
                   </td>
-                  <td class="px-5 py-3.5">
+                  <!-- <td class="px-5 py-3.5">
                     <app-input
                       [label]="lang() === 'en' ? 'Description' : 'الوصف'"
                       formControlName="description"
                       />
-                    </td>
+                    </td> -->
 
                   <td class="px-5 py-3.5">
                     <div class="flex items-center gap-2 h-full">
@@ -96,7 +96,7 @@
                   class="border-b border-gray-50 hover:bg-[#F4F8FD] transition-colors duration-150"
                 >
                 <td class="px-5 py-3.5 text-sm text-gray-700">{{ category.name }}</td>
-                  <td class="px-5 py-3.5 text-sm text-gray-700">{{ category.description }}</td>
+                  <!-- <td class="px-5 py-3.5 text-sm text-gray-700">{{ category.description }}</td> -->
                   <td class="px-5 py-3.5">
                     <div class="flex items-center gap-2">
                       <button

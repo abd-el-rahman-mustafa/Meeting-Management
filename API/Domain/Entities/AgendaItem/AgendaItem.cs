@@ -6,6 +6,7 @@ public class AgendaItem : BaseEntity
     public string Description { get; set; } = null!; // e.g. "Discussion on the current status of the project, including progress, challenges, and next steps."
     public int AgendaItemTypeId { get; set; }
     public AgendaItemType AgendaItemType { get; set; } = null!;
+    public string AgendaItemTypeName { get; set; } = null!; // e.g. "Discussion", "Decision", "Information"
 
     public int Order { get; set; } // e.g. 1 (the order of the agenda item in the meeting agenda)
     public int DurationInMinutes { get; set; } // e.g. 30 (duration of the agenda item in minutes)

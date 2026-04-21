@@ -31,9 +31,9 @@
             <th class="px-5 py-3.5 text-start text-[11px] font-semibold uppercase tracking-widest text-gray-400">
               {{ lang() === 'en' ? 'Name' : 'الاسم' }}
             </th>
-            <th class="px-5 py-3.5 text-start text-[11px] font-semibold uppercase tracking-widest text-gray-400">
+            <!-- <th class="px-5 py-3.5 text-start text-[11px] font-semibold uppercase tracking-widest text-gray-400">
               {{ lang() === 'en' ? 'Description' : 'الوصف' }}
-            </th>
+            </th> -->
             <th class="px-5 py-3.5 text-start text-[11px] font-semibold uppercase tracking-widest text-gray-400">
               {{ lang() === 'en' ? 'Actions' : 'الإجراءات' }}
             </th>
@@ -57,12 +57,12 @@
                       formControlName="name"
                     />
                   </td>
-                  <td class="px-5 py-3.5">
+                  <!-- <td class="px-5 py-3.5">
                     <app-input
                       [label]="lang() === 'en' ? 'Description' : 'الوصف'"
                       formControlName="description"
                     />
-                  </td>
+                  </td> -->
                   <td class="px-5 py-3.5">
                     <div class="flex items-center gap-2 h-full">
                       <button
@@ -87,7 +87,7 @@
               } @else {
                 <tr class="border-b border-gray-50 hover:bg-[#F4F8FD] transition-colors duration-150">
                   <td class="px-5 py-3.5 text-sm text-gray-700">{{ type.name }}</td>
-                  <td class="px-5 py-3.5 text-sm text-gray-700">{{ type.description }}</td>
+                  <!-- <td class="px-5 py-3.5 text-sm text-gray-700">{{ type.description }}</td> -->
                   <td class="px-5 py-3.5">
                     <div class="flex items-center gap-2">
                       <button
