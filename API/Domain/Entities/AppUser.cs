@@ -1,10 +1,6 @@
-
-
-using Microsoft.AspNetCore.Identity;
-
 namespace API.Domain.Entities;
 
-public class AppUser : IdentityUser<int>
+public class AppUser 
 {
 
     public required string FirstName { get; set; }
@@ -16,7 +12,6 @@ public class AppUser : IdentityUser<int>
     public bool IsActive { get; set; } = true;
     public bool IsDeleted { get; set; } = false;
 
-    public ICollection<AppUserRole> UserRoles { get; set; } = new List<AppUserRole>();
 
 
 }
